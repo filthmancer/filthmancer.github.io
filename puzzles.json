@@ -1,0 +1,56 @@
+{
+    "settings":
+    {
+        "box-failed":"#D6D3A3",
+        "box-fake":"#000000",
+        "box-text":"#fbfbd3",
+        "fullwidth": "100%",
+        "width-target":"500px",
+        "overlay-rotation":"25deg",
+        "overlay-offset-y":"-250px",
+        "overlay-offset-x":"50px",
+        "answer-anim-1-time":".5s",
+        "answer-anim-2-time":"1s"
+    },
+    "puzzles":[
+    {
+        "topic":"Gemstone",
+        "color":"#E08732",
+        "questions":
+        [
+            ["Golden Beryl",true],
+            ["Danklite",false],
+            ["Bismutotantalite",true],
+            ["Moonstone",false],
+            ["Hiddenite",true],
+            ["Labradorite",true]
+        ]
+    },
+    {
+        "topic":"Fruit",
+        "color":"#1da205",
+        "questions":
+        [
+            ["Golden Ham",false],
+            ["Dorkberry",false],
+            ["Rapid Zesty",false],
+            ["Frission",false],
+            ["Limerick", false],
+            ["Zeapord", false]
+        ]
+    },
+    {
+        "topic":"Bird",
+        "color":"#1da205",
+        "questions":
+        [
+            ["Sparrow",true],
+            ["Finch",true],
+            ["Golden Boy",false],
+            ["The Tweeter",false],
+            ["Raven",true],
+            ["Jeff",false]
+        ]
+    }
+]
+}
