@@ -12,6 +12,15 @@
         "answer-anim-1-time":".5s",
         "answer-anim-2-time":"1s"
     },
+    "colors": [
+        "FF6921",
+        "E08732",
+        "F9D225",
+        "88A74A",
+        "A0B3DD",
+        "E292E7",
+        "FE9F9F"
+    ],
     "puzzles":[
     {
         "num": 101,
@@ -47,8 +56,8 @@
             ["Limerick", false],
             ["Zeapord", false]
         ],
-        "editor": "Hank Green",
-        "editor_blurb": "beloved internet science guy",
+        "editor": "Darcy Smith",
+        "editor_blurb": "dog grooming speedrunner",
         "editor_link": "https://hankgreen.com/"
     },
     {
@@ -66,8 +75,8 @@
             ["Raven",true],
             ["Jeff",false]
         ],
-        "editor": "Hank Green",
-        "editor_blurb": "beloved internet science guy",
+        "editor": "Jessica Shipard",
+        "editor_blurb": "bauble collector",
         "editor_link": "https://hankgreen.com/"
     }
 ]
