@@ -26,18 +26,20 @@ $(document).ready(function ()
 
                 var index = irand(puzzles.length);//puzzles.find(p => p.id == now);
                 var puzzle = puzzles[index];
-                console.log(puzzle);
+                console.log(json.backup);
 
                 if (puzzle)
                 {
                     var today = moment(puzzle.id);
-                    var baseColor = json.colors[today.day()];
+                    var backup = json.backup[today.day()];
+
+                    var baseColor = puzzle.color ?? backup[2];
                     document.documentElement.style.setProperty('--base', baseColor);
 
                     var text = "#" + puzzle.num;
                     text += " - " + today.format("ddd DD MMM");
                     //moment().format("ddd DD MMM");
-                    text += " - " + puzzle.category;
+                    text += " - " + (puzzle.category ?? backup[1]);
                     console.log(text.toUpperCase());
                     $("#header-index").text(text.toUpperCase());
 

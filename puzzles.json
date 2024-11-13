@@ -12,7 +12,7 @@
         "answer-anim-1-time":".5s",
         "answer-anim-2-time":"1s"
     },
-    "colors": [
+    "color": [
         "FF6921",
         "E08732",
         "F9D225",
@@ -21,13 +21,49 @@
         "E292E7",
         "FE9F9F"
     ],
+    "backup": [
+        [
+            "Mon",
+            "World",
+            "FF6921"
+        ],
+        [
+            "Tue",
+            "People",
+            "E08732"
+        ],
+        [
+            "Wed",
+            "Food",
+            "F9D225"
+        ],
+        [
+            "Thu",
+            "Nature",
+            "88A74A"
+        ],
+        [
+            "Fri",
+            "Things",
+            "A0B3DD"
+        ],
+        [
+            "Sat",
+            "Arts",
+            "E292E7"
+        ],
+        [
+            "Sun",
+            "Leisure",
+            "FE9F9F"
+        ]
+    ],
     "puzzles":[
     {
         "num": 101,
         "id": "20241113",
         "category": "Nature",
-        "topic":"Gemstone",
-        "color":"#E08732",
+        "topic": "Gemstone",
         "questions":
         [
             ["Golden Beryl",true],
@@ -45,8 +81,7 @@
         "num": 102,
         "id": "20241114",
         "category": "Nature",
-        "topic":"Fruit",
-        "color":"#1da205",
+        "topic": "Fruit",
         "questions":
         [
             ["Golden Ham",false],
@@ -64,8 +99,7 @@
         "num": 103,
         "id": "20241115",
         "category": "Nature",
-        "topic":"Bird",
-        "color":"#1da205",
+        "topic": "Bird",
         "questions":
         [
             ["Sparrow",true],
