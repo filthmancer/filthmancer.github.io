@@ -62,7 +62,6 @@
     {
         "num": 101,
         "id": "20241113",
-        "category": "Nature",
         "topic": "Gemstone",
         "questions":
         [
@@ -80,7 +79,6 @@
     {
         "num": 102,
         "id": "20241114",
-        "category": "Nature",
         "topic": "Fruit",
         "questions":
         [
@@ -98,7 +96,6 @@
     {
         "num": 103,
         "id": "20241115",
-        "category": "Nature",
         "topic": "Bird",
         "questions":
         [

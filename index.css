@@ -90,7 +90,11 @@ body {
 
 
 h1 {
-    font-size: 50px;
+    font-family: "Kyneton DemiBold";
+        font-size: 32em;
+        word-spacing: 0%;
+        line-height: 32em;
+        text-transform: capitalize;
     text-align: center;
     margin: 0;
 }
