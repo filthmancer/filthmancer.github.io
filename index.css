@@ -97,9 +97,14 @@ h1 {
 
 h2 {
     font-size: 20px;
+    margin: 0;
+        font-family: 'Kyneton Regular';
 }
 
-h3 {}
+h3 {
+    font-size: var(--font-size-blurb);
+    font-family: 'Quadrant';
+}
 
 .header {
     height: 26px;
@@ -111,6 +116,7 @@ h3 {}
     font-family: "Kyneton Regular";
 
     border-bottom: 2px solid black;
+    padding-bottom: 5px;
 }
 
 .splash {
@@ -143,10 +149,6 @@ h3 {}
     height: 150px;
 }
 
-.splash .text {
-    font-size: var(--font-size-blurb);
-    font-family: 'Quadrant';
-}
 
 .footer {
     position: absolute;

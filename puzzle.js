@@ -48,9 +48,6 @@ $(document).ready(function ()
         var puzzle_index = irand(puzzles.length)
         puzzle = puzzles[puzzle_index];
 
-        var baseColor = puzzle.color;
-        document.documentElement.style.setProperty('--base', baseColor);
-
         questions = puzzle.questions;
         shuffleArray(questions);
         question_index = 0;
