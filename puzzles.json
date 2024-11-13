@@ -27,7 +27,10 @@
             ["Moonstone",false],
             ["Hiddenite",true],
             ["Labradorite",true]
-        ]
+        ],
+        "editor": "Hank Green",
+        "editor_blurb": "beloved internet science guy",
+        "editor_link": "https://hankgreen.com/"
     },
     {
         "num": 102,
@@ -43,7 +46,10 @@
             ["Frission",false],
             ["Limerick", false],
             ["Zeapord", false]
-        ]
+        ],
+        "editor": "Hank Green",
+        "editor_blurb": "beloved internet science guy",
+        "editor_link": "https://hankgreen.com/"
     },
     {
         "num": 103,
@@ -59,7 +65,10 @@
             ["The Tweeter",false],
             ["Raven",true],
             ["Jeff",false]
-        ]
+        ],
+        "editor": "Hank Green",
+        "editor_blurb": "beloved internet science guy",
+        "editor_link": "https://hankgreen.com/"
     }
 ]
 }
