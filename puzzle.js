@@ -1,5 +1,4 @@
-// var json = 'https://freight.cargo.site/m/L2062450860408978361645502134319/puzzles.json';
-var json = 'puzzles.json';
+var json = 'https://filthmancer.github.io/puzzles.json';
 
 var puzzles;
 var puzzle;
