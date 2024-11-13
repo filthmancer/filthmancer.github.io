@@ -73,7 +73,7 @@ table {
 
 tr {
     border-bottom: 2px solid var(--base);
-    border-radius: 5px;
+    border-radius: .5px;
 }
 
 td {
@@ -265,12 +265,6 @@ td {
     }
 }
 
-
-h1 {
-    font-size: 50px;
-    text-align: center;
-    margin: 0;
-}
 
 .pretext {
     font-family: 'Kiddo Regular';

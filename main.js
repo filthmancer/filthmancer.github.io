@@ -24,9 +24,8 @@ $(document).ready(function ()
             {
                 puzzles = json.puzzles;
 
-                var index = irand(puzzles.length);//puzzles.find(p => p.id == now);
-                var puzzle = puzzles[index];
-                console.log(json.backup);
+                var index = irand(puzzles.length);
+                var puzzle = puzzles[index];//puzzles.find(p => p.id == now);
 
                 if (puzzle)
                 {
@@ -40,13 +39,11 @@ $(document).ready(function ()
                     text += " - " + today.format("ddd DD MMM");
                     //moment().format("ddd DD MMM");
                     text += " - " + (puzzle.category ?? backup[1]);
-                    console.log(text.toUpperCase());
                     $("#header-index").text(text.toUpperCase());
 
                     var link = puzzle.editor.link(puzzle.editor_link);
 
                     text = footer_text_format.format(link, puzzle.editor_blurb);
-                    console.log(text);
                     $("#footer-text").html(text);
                 }
 
