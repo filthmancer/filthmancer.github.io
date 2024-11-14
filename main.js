@@ -1,5 +1,6 @@
 var json_add = 'https://filthmancer.github.io/puzzles.json';
 var backup;
+var settings;
 
 var footer_text_format = "Edited by {0},<br>{1}.";
 var moment_format = "ddd DD MMM"
@@ -42,6 +43,7 @@ function init_data(json)
     var index = irand(puzzles.length);
     puzzle_today = puzzles[index];
     backup = json.backup;
+    settings = json.settings;
     //puzzle_today = puzzles.find(p => p.id == now);
 }
 
@@ -55,7 +57,10 @@ function init_home()
         var baseColor = puzzle_today.color ?? today_backup[2];
         document.documentElement.style.setProperty('--base', baseColor);
 
-        var text = "#" + puzzle_today.num;
+        $("body").attr("class", "bgColorOn");
+
+        var num = today.subtract(settings).days();
+        var text = "#" + num.toString().padStart(3, '0')
         text += " - " + today.format("ddd DD MMM");
         //moment().format("ddd DD MMM");
         text += " - " + (puzzle_today.category ?? today_backup[1]);
@@ -71,13 +76,13 @@ function init_home()
             $("#button-play").bind('click', e =>
             {
                 init_puzzle();
+                $("body").attr("class", "bgColorOff");
                 $('#home').fadeTo('fast', 0, () =>
                 {
                     $("#home").addClass("ignore-input");
                     $('#game').fadeTo('fast', 1, () =>
                     {
                         $("#game").removeClass("ignore-input");
-
                     });
                 })
             });

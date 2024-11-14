@@ -2,10 +2,10 @@
     --font-size-base: 25px;
     --font-size-button: 15px;
     --base: #fff8e6;
-    ;
     --color-black: #000000;
     --color-cream: #fff8e6;
     --color-grey: #D6D3A3;
+    --header-height: 26px;
 }
 
 body {
@@ -14,20 +14,37 @@ body {
     background-color: var(--base);
 }
 
-
-.page {
-    min-height: var(--viewport-height);
-    justify-content: center;
+body.bgColorOn {
+    animation: bodyFadeIn ease .5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
 }
 
-.page-content {
-    align-items: flex-start;
+body.bgColorOff {
+    animation: bodyFadeOut ease .5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
 }
 
-.page-layout {
-    align-items: flex-start;
+@keyframes bodyFadeIn {
+    0% {
+        background-color: var(--color-cream);
+    }
+
+                                100% {
+                                    background-color: var(--base);
+                                }
 }
 
+@keyframes bodyFadeOut {
+    0% {
+        background-color: var(--base);
+    }
+
+    100% {
+        background-color: var(--color-cream);
+    }
+}
 
 
 h1 {
@@ -82,7 +99,7 @@ h5 {
 }
 
 .header {
-    height: 26px;
+    height: var(--header-height);
     width: 100%;
     margin: 0;
     padding: 0;
@@ -92,6 +109,7 @@ h5 {
 
     border-bottom: 2px solid black;
     border-radius: .5px;
+    position: fixed;
 }
 
 .button {
@@ -151,7 +169,14 @@ h5 {
     width: 343px;
 }
 
-.button:
+.button:active {
+    background-image: url("../assets/button_front_selected.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    height: 250px;
+    width: 343px;
+}
 
 a:hover,
 a:visited,

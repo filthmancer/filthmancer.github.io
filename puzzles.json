@@ -10,7 +10,8 @@
         "overlay-offset-y":"-250px",
         "overlay-offset-x":"50px",
         "answer-anim-1-time":".5s",
-        "answer-anim-2-time":"1s"
+        "answer-anim-2-time": "1s",
+        "epoch": "20241110"
     },
     "color": [
         "FF6921",
