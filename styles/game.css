@@ -10,9 +10,22 @@
     --answer-anim-2-time: 1s;
 }
 
+#game {
+    background-color: var(--color-cream);
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#game.header {
+    background-color: var(--color-cream);
+}
+
 .box {
     background-color: var(--base);
-    border-radius: 5px;
+    border-radius: 4px;
     width: var(--fullwidth);
     aspect-ratio: 1 / 1;
     margin: auto;

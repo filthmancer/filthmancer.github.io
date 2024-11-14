@@ -1,0 +1,49 @@
+#home {
+    background-color: var(--base);
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.splash {
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    margin-top: -15%;
+    margin-left: -15%;
+    width: 70%;
+    height: 50%;
+    display: flex;
+    min-height: 40%;
+    min-width: 60%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.image {
+    min-width: 40%;
+    padding: 1%;
+}
+
+.image.logo {
+    height: 300px;
+}
+
+.image.logo-header {
+    height: 150px;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-footer);
+    font-family: 'Quadrant';
+
+}

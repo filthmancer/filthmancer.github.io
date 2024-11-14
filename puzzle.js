@@ -1,7 +1,7 @@
 var json = 'https://filthmancer.github.io/puzzles.json';
 
 var puzzles;
-var puzzle;
+var puzzle_today;
 var questions;
 var question_index = 0;
 var question_state = () => questions[question_index][1];
@@ -46,9 +46,9 @@ $(document).ready(function ()
     function getnewpuzzle()
     {
         var puzzle_index = irand(puzzles.length)
-        puzzle = puzzles[puzzle_index];
+        puzzle_today = puzzles[puzzle_index];
 
-        questions = puzzle.questions;
+        questions = puzzle_today.questions;
         shuffleArray(questions);
         question_index = 0;
 
@@ -64,7 +64,7 @@ $(document).ready(function ()
     {
         if (question_index < questions.length)
         {
-            $("#topic").text(puzzle.topic + "?");
+            $("#topic").text(puzzle_today.topic + "?");
             $("#question").text(questions[question_index][0]);
             $("#box .box-overlay").hide();
             $("#question").attr("class", "box-text")
