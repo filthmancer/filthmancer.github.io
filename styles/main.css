@@ -9,6 +9,7 @@
 }
 
 body {
+    width: 100%;
     height: 100%;
     margin: 0;
     background-color: var(--base);
@@ -49,9 +50,9 @@ body.bgColorOff {
 
 h1 {
     font-family: "Kyneton DemiBold";
-    font-size: 32pt;
+    font-size: 32px;
     letter-spacing: 0%;
-    line-height: 32pt;
+    line-height: 32px;
     text-transform: uppercase;
     text-align: center;
     margin: 0;
@@ -59,9 +60,9 @@ h1 {
 
 h2 {
     font-family: 'Kyneton DemiBold';
-    font-size: 14pt;
+    font-size: 14px;
     letter-spacing: 2%;
-    line-height: 17pt;
+    line-height: 17px;
     text-transform: uppercase;
     font-weight: normal;
     margin: 0;
@@ -69,9 +70,9 @@ h2 {
 
 h3 {
     font-family: 'Quadrant';
-    font-size: 18pt;
+    font-size: 18px;
     letter-spacing: 0%;
-    line-height: 24pt;
+    line-height: 24px;
     text-transform: none;
     font-weight: normal;
     margin: 0;
@@ -80,9 +81,9 @@ h3 {
 
 h4 {
     font-family: 'Quadrant';
-    font-size: 14pt;
+    font-size: 14px;
     letter-spacing: 2%;
-    line-height: 17pt;
+    line-height: 17px;
     text-transform: none;
     font-weight: normal;
     margin: 0;
@@ -90,9 +91,9 @@ h4 {
 
 h5 {
     font-family: 'Kiddo Regular';
-    font-size: 20pt;
+    font-size: 20px;
     letter-spacing: -5%;
-    line-height: 24pt;
+    line-height: 24px;
     text-transform: none;
     font-weight: normal;
     margin: 0;
@@ -100,16 +101,18 @@ h5 {
 
 .header {
     height: var(--header-height);
-    width: 100%;
     margin: 0;
     padding: 0;
     background-color: var(--base);
     text-align: center;
     font-family: "Kyneton Regular";
 
-    border-bottom: 2px solid black;
-    border-radius: .5px;
-    position: fixed;
+    border-bottom: 1.5px solid black;
+        z-index: 999;
+        position: -webkit-sticky;
+        /* For Safari */
+        position: sticky;
+        top: 0;
 }
 
 .button {
@@ -155,29 +158,35 @@ h5 {
     background-image: url("../assets/button_unselected.svg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 80%;
-    height: 250px;
-    width: 343px;
+    background-size: contain;
+    
+        height: 55px;
+        width: 130px;
 }
 
 .button:hover {
     background-image: url("../assets/button_hover.svg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 80%;
-    height: 250px;
-    width: 343px;
+    background-size: contain;
+    
+        height: 55px;
+        width: 130px;
 }
 
 .button:active {
     background-image: url("../assets/button_front_selected.svg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 80%;
-    height: 250px;
-    width: 343px;
+    background-size: contain;
+    
+        height: 55px;
+        width: 130px;
 }
 
+.button:active h2 {
+    margin-top: 1%;
+}
 a:hover,
 a:visited,
 a:link,
@@ -209,59 +218,71 @@ a:active {
     src: url("../fonts/QuadrantTextTrial-Regular.otf");
 }
 
-@media (min-width: 858px) {
+@media (max-width: 1700px) {
     html {
-        font-size: 35px;
+        font-size: 25px;
     }
 
     :root {
-        --width-target: 800px;
+        --width-target: 500px;
+            --fullwidth: 100%;
+            --font-size-blurb: 35px;
+            --font-size-footer: 30px;
+        }
+        }
+                @media (max-width: 1280px) {
+                    html {
+                font-size: 25px;
+                }
+                
+                :root {
+                --width-target: 500px;
+                    --fullwidth: 100%;
+                    --font-size-blurb: 35px;
+                    --font-size-footer: 30px;
+                }
+                }
+                
+                @media (max-width: 1150px) {
+                    html {
+                        font-size: 25px;
+                    }
+                
+                    :root {
+                        --width-target: 500px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;
     }
 }
 
-@media (min-width: 780px) {
+@media (max-width: 1024px) {
     html {
-        font-size: 35px;
+        font-size: 25px;
     }
 
     :root {
-        --width-target: 700px;
+        --width-target: 500px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;
     }
 }
 
-@media (min-width: 702px) {
+@media (max-width: 767px) {
     html {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     :root {
-        --width-target: 700px;
+        --width-target: 500px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;
     }
 }
 
-@media (min-width: 724px) {
-    html {
-        font-size: 45px;
-    }
-
-    :root {
-        --width-target: 700px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
-    }
-}
-
-@media (max-width: 623px) {
+@media (max-width: 1024px) {
     html {
         font-size: 25px;
     }

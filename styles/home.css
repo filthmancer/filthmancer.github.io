@@ -27,11 +27,12 @@
 }
 
 .image.logo {
-    height: 250px;
+    height: 150px;
 }
 
 .image.logo-header {
-    height: 100px;
+    height: 62px;
+        width: 176px;
 }
 
 
