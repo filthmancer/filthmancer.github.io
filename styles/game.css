@@ -11,13 +11,11 @@
 }
 
 #game {
-    /* background-color: var(--color-cream); */
     margin: 0;
     opacity: 0;
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: 100%;
-    margin-top: var(--header-height);
+    height:100%;
 }
 
 
@@ -27,8 +25,8 @@
     width: var(--fullwidth);
     aspect-ratio: 1 / 1;
     margin: auto;
-    max-width: var(--width-target);
-    max-height: var(--width-target);
+    min-width: var(--min-width);
+    min-height: var(--min-width);
     display: block;
     z-index: 2;
     position: relative;
@@ -42,8 +40,8 @@
     display: flex;
     width: var(--fullwidth);
     aspect-ratio: 1 / 1;
-    max-width: var(--width-target);
-    max-height: var(--width-target);
+    min-width: var(--min-width);
+    min-height: var(--min-width);
     align-items: center;
     justify-content: center;
 }
@@ -77,8 +75,8 @@ table {
     border-collapse: collapse;
     width: var(--fullwidth);
     table-layout: fixed;
-    max-width: var(--width-target);
-    max-height: var(--width-target);
+    min-width: var(--min-width);
+    min-height: var(--min-width);
     z-index: -2;
 }
 

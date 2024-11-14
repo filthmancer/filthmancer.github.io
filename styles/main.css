@@ -10,7 +10,7 @@
 
 body {
     width: 100%;
-    height: 100%;
+    height: fit-content;
     margin: 0;
     background-color: var(--base);
 }
@@ -32,9 +32,9 @@ body.bgColorOff {
         background-color: var(--color-cream);
     }
 
-                                100% {
-                                    background-color: var(--base);
-                                }
+    100% {
+        background-color: var(--base);
+    }
 }
 
 @keyframes bodyFadeOut {
@@ -108,11 +108,16 @@ h5 {
     font-family: "Kyneton Regular";
 
     border-bottom: 1.5px solid black;
-        z-index: 999;
-        position: -webkit-sticky;
-        /* For Safari */
-        position: sticky;
-        top: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.pages {
+    position: relative;
+    width: 100%;
+    height:100%;
 }
 
 .button {
@@ -159,9 +164,8 @@ h5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    
-        height: 55px;
-        width: 130px;
+    height: 55px;
+    width: 130px;
 }
 
 .button:hover {
@@ -169,9 +173,8 @@ h5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    
-        height: 55px;
-        width: 130px;
+    height: 55px;
+    width: 130px;
 }
 
 .button:active {
@@ -179,14 +182,18 @@ h5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    
-        height: 55px;
-        width: 130px;
+    height: 55px;
+    width: 130px;
+}
+
+.button h2{
+    margin-top:-2%;
 }
 
 .button:active h2 {
-    margin-top: 1%;
+    margin-top: 0%;
 }
+
 a:hover,
 a:visited,
 a:link,
@@ -224,32 +231,33 @@ a:active {
     }
 
     :root {
-        --width-target: 500px;
-            --fullwidth: 100%;
-            --font-size-blurb: 35px;
-            --font-size-footer: 30px;
-        }
-        }
-                @media (max-width: 1280px) {
-                    html {
-                font-size: 25px;
-                }
-                
-                :root {
-                --width-target: 500px;
-                    --fullwidth: 100%;
-                    --font-size-blurb: 35px;
-                    --font-size-footer: 30px;
-                }
-                }
-                
-                @media (max-width: 1150px) {
-                    html {
-                        font-size: 25px;
-                    }
-                
-                    :root {
-                        --width-target: 500px;
+        --min-width: 250px;
+        --fullwidth: 100%;
+        --font-size-blurb: 35px;
+        --font-size-footer: 30px;
+    }
+}
+
+@media (max-width: 1280px) {
+    html {
+        font-size: 25px;
+    }
+
+    :root {
+        --min-width: 250px;
+        --fullwidth: 100%;
+        --font-size-blurb: 35px;
+        --font-size-footer: 30px;
+    }
+}
+
+@media (max-width: 1150px) {
+    html {
+        font-size: 25px;
+    }
+
+    :root {
+        --min-width: 250px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;
@@ -262,7 +270,7 @@ a:active {
     }
 
     :root {
-        --width-target: 500px;
+        --min-width: 250px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;
@@ -275,7 +283,7 @@ a:active {
     }
 
     :root {
-        --width-target: 500px;
+        --min-width: 250px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;
@@ -288,7 +296,7 @@ a:active {
     }
 
     :root {
-        --width-target: 500px;
+        --min-width: 250px;
         --fullwidth: 100%;
         --font-size-blurb: 35px;
         --font-size-footer: 30px;

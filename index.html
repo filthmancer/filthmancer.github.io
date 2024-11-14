@@ -1,7 +1,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
 
 <link href="./styles/home.css" rel="stylesheet" type="text/css" />
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
@@ -9,89 +8,94 @@
 <link rel="prefetch" href="./assets/button_unselected.svg" />
 <link rel="prefetch" href="./assets/button_hover.svg" />
 <link rel="prefetch" href="./assets/button_front_selected.svg" />
+</head>
+
 
 <body class="bgColorOff">
 	<header class="header">
 		<h2 id="header-index">#243 - MON 26 OCT - NATURE</h2>
 	</header>
-	<div id="home">
-		<div class="splash">
-			<img class="image logo" src="assets/logo_cuisine.svg">
-			<img class="image logo-header" src="assets/logo_header.svg">
-			<h3>Sort the real from the fakes,<br>with new questions daily.</h3>
-			<div class="button" id="button-play">
-				<h2>PLAY</h2>
+	<div class="pages">
+		<div id="home">
+			<div class="splash">
+				<img class="image logo" src="assets/logo_cuisine.svg">
+				<img class="image logo-header" src="assets/logo_header.svg">
+				<h3>Sort the real from the fakes,<br>with new questions daily.</h3>
+				<div class="button" id="button-play">
+					<h2>PLAY</h2>
+				</div>
 			</div>
+			<div class="footer">
+				<h4 id="footer-text">
+					Edited by
+				</h4 id="footer-text">
 			</div>
-		<div class="footer">
-			<h4 id="footer-text">
-				Edited by
-			</h4 id="footer-text">
+		</div>
+		
+		<div id="game" class="ignore-input">
+			<div id="topic-container">
+				<div class="pretext" id="pretext">is this a real</div>
+				<h1 id="topic">Great!</h1>
+			</div>
+			<br>
+			<div class="box" id="box">
+				<div class="box-sub">
+					<h1 class="box-text" id="question">4/4</h1>
+				</div>
+				<div class="box-overlay">fake</div>
+		
+			</div>
+			<table class="questions-table">
+				<tbody>
+					<tr id="q0">
+						<td class="fake" id="fake"></td>
+						<td class="title hidden" id="title">Golden Ham</td>
+						<td id="correct">true</td>
+					</tr>
+					<tr id="q1">
+						<td class="fake" id="fake">FAKE</td>
+						<td class="title hidden" id="title">Danklite</td>
+						<td id="correct">true</td>
+					</tr>
+					<tr id="q2">
+						<td class="fake" id="fake"></td>
+						<td class="title hidden" id="title">Bismutotantalite</td>
+						<td id="correct">true</td>
+					</tr>
+					<tr id="q3">
+						<td class="fake" id="fake">FAKE</td>
+						<td class="title hidden" id="title">Moonstone</td>
+						<td id="correct">true</td>
+					</tr>
+					<tr id="q4">
+						<td class="fake" id="fake">FAKE</td>
+						<td class="title hidden" id="title">Moonstone</td>
+						<td id="correct">true</td>
+					</tr>
+					<tr id="q5">
+						<td class="fake" id="fake">FAKE</td>
+						<td class="title hidden" id="title">Moonstone</td>
+						<td id="correct">true</td>
+					</tr>
+				</tbody>
+			</table>
+		
+			<br><br>
+		
+			<div class="button-group">
+				<div class="button" id="button-fake">
+					<h2>FAKE</h2>
+				</div>
+				<div class="button" id="button-real">
+					<h2>REAL</h2>
+				</div>
+				<div class="button" id="button-new-puzzle">
+					<h2>NEW PUZZLE</h2>
+				</div>
+			</div>
 		</div>
 	</div>
 	
-	<div id="game" class="ignore-input">
-		<div id="topic-container">
-			<div class="pretext" id="pretext">is this a real</div>
-			<h1 id="topic">Great!</h1>
-		</div>
-		<br>
-		<div class="box" id="box">
-			<div class="box-sub">
-				<h1 class="box-text" id="question">4/4</h1>
-			</div>
-			<div class="box-overlay">fake</div>
-	
-		</div>
-		<table class="questions-table">
-			<tbody>
-				<tr id="q0">
-					<td class="fake" id="fake"></td>
-					<td class="title hidden" id="title">Golden Ham</td>
-					<td id="correct">true</td>
-				</tr>
-				<tr id="q1">
-					<td class="fake" id="fake">FAKE</td>
-					<td class="title hidden" id="title">Danklite</td>
-					<td id="correct">true</td>
-				</tr>
-				<tr id="q2">
-					<td class="fake" id="fake"></td>
-					<td class="title hidden" id="title">Bismutotantalite</td>
-					<td id="correct">true</td>
-				</tr>
-				<tr id="q3">
-					<td class="fake" id="fake">FAKE</td>
-					<td class="title hidden" id="title">Moonstone</td>
-					<td id="correct">true</td>
-				</tr>
-				<tr id="q4">
-					<td class="fake" id="fake">FAKE</td>
-					<td class="title hidden" id="title">Moonstone</td>
-					<td id="correct">true</td>
-				</tr>
-				<tr id="q5">
-					<td class="fake" id="fake">FAKE</td>
-					<td class="title hidden" id="title">Moonstone</td>
-					<td id="correct">true</td>
-				</tr>
-			</tbody>
-		</table>
-	
-		<br><br>
-	
-		<div class="button-group">
-			<div class="button" id="button-fake">
-				<h2>FAKE</h2>
-			</div>
-			<div class="button" id="button-real">
-				<h2>REAL</h2>
-			</div>
-			<div class="button" id="button-new-puzzle">
-				<h2>NEW PUZZLE</h2>
-			</div>
-			</div>
-	</div>
 	
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
