@@ -55,7 +55,7 @@ function init_home()
         var today_backup = backup[today.day()];
 
         var baseColor = puzzle_today.color ?? today_backup[2];
-        document.documentElement.style.setProperty('--base', baseColor);
+        document.documentElement.style.setProperty('--color-base', baseColor);
 
         $("body").attr("class", "bgColorOn");
 
@@ -75,7 +75,7 @@ function init_home()
         {
             $("#button-play").bind('click', e =>
             {
-                init_puzzle();
+                init_game();
                 $("body").attr("class", "bgColorOff");
                 $('#home').fadeTo('fast', 0, () =>
                 {
@@ -89,7 +89,7 @@ function init_home()
         });
     }
 }
-function init_puzzle()
+function init_game()
 {
     $("#button-real").click(function ()
     {
@@ -103,6 +103,12 @@ function init_puzzle()
     {
         getnewpuzzle();
     });
+    $("#button-share").click(() =>
+        {
+            share();
+        });
+
+    $("header").addClass("ingame");
     getnewpuzzle();
 }
 function getnewpuzzle()
@@ -116,9 +122,15 @@ function getnewpuzzle()
 
     answers = [];
     $("#topic-container #pretext").attr("class", "pretext shown");
+    $("#pretext").text("is this a real");
     set_button_state(true);
     updateQuestion();
     updateList();
+
+}
+
+function share()
+{
 
 }
 
@@ -145,8 +157,12 @@ function updateList()
         let e = questions[index];
         let answered = answers.length > index;
         let name = '#q' + index;
-        var title = $(name + " #title");
-        title.text(e[0]);
+
+        $(name).attr("class", answered ? "shown":"hidden");
+        $(name + " #title h2").text(e[0]);
+        $(name + " #correct img").css("visibility", answered  && answers[index] == e[1]?"visible":"hidden" )
+        $(name + " #fake img").css("visibility",answered && !e[1]?"visible":"hidden" )
+        /* 
         title.attr("class", answered ? "title shown" : "title hidden");
 
         var fake = $(name + " #fake");
@@ -155,7 +171,7 @@ function updateList()
 
         var correct = $(name + " #correct");
         correct.text(answered ? (answers[index] == e[1]) : "");
-        correct.attr("class", (answered ? "shown" : "hidden"));
+        correct.attr("class", (answered ? "shown" : "hidden")); */
     }
 }
 function answerQuestion(answer)
@@ -169,10 +185,13 @@ function answerQuestion(answer)
     if (!isReal)
         $("#question").attr("class", "box-text box-answer-text")
 
+    $("#button-fake").attr("disabled", "disabled")
+    $("#button-real").attr("disabled", "disabled")
     setTimeout(() =>
     {
-        document.documentElement.style.setProperty('--overlay-rotation', isReal ? "-25deg" : "25deg");
-        document.documentElement.style.setProperty('--overlay-offset-x', isReal ? "50px" : "-50px");
+        document.documentElement.style.setProperty('--overlay-sign', isReal ? -1:1);
+        // document.documentElement.style.setProperty('--overlay-rotation', isReal ? "-9deg" : "9deg");
+        // document.documentElement.style.setProperty('--overlay-offset-x', isReal ? "50px" : "-50px");
         $("#box .box-overlay").show();
         $("#box .box-overlay").text(isReal ? "real" : "fake");
         setTimeout(() =>
@@ -181,6 +200,9 @@ function answerQuestion(answer)
             setTimeout(() =>
             {
                 box.attr("class", "box box-arrive");
+                $("#button-fake").removeAttr("disabled")
+                $("#button-real").removeAttr("disabled")
+
                 updateQuestion();
                 updateList();
             }, 1000);
@@ -191,8 +213,11 @@ function answerQuestion(answer)
 function endGame()
 {
     $("#topic-container #pretext").attr("class", "pretext hidden");
-    $("#topic-container #topic").text("Great!")
     $("#box .box-overlay").hide();
+    $("#question").attr("class", "box-text")
+    $("#pretext").text("nice work finding the real");
+    $("#topic-container #topic").text(puzzle_today.topic + "s");
+    
     var correct = 0;
     answers.forEach((a, index) =>
     {
@@ -209,12 +234,14 @@ function set_button_state(active)
     if (active)
     {
         $("#button-new-puzzle").addClass("hidden-button")
+        $("#button-share").addClass("hidden-button")
         $("#button-fake").removeClass("hidden-button")
         $("#button-real").removeClass("hidden-button")
     }
     else
     {
-        $("#button-new-puzzle").removeClass("hidden-button")
+        // $("#button-new-puzzle").removeClass("hidden-button")
+        $("#button-share").removeClass("hidden-button")
         $("#button-fake").addClass("hidden-button")
         $("#button-real").addClass("hidden-button")
     }

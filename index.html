@@ -12,7 +12,7 @@
 
 
 <body class="bgColorOff">
-	<header class="header">
+	<header class="header flexcontainer">
 		<h2 id="header-index">#243 - MON 26 OCT - NATURE</h2>
 	</header>
 	<div class="pages">
@@ -22,7 +22,7 @@
 				<div style="height:13px"></div>
 				<img class="image logo-header" src="assets/logo_header.svg">
 				<div class="flexcontainer" style="height:88;">
-					<h3>Sort the real from the fakes,<br>with new questions daily.</h3>
+					<h3>Sort the real from the fakes,<br>with new topics daily.</h3>
 				</div>
 				
 				<div class="button" id="button-play">
@@ -37,65 +37,66 @@
 		</div>
 		
 		<div id="game" class="ignore-input">
-			<div id="topic-container">
-				<div class="pretext" id="pretext">is this a real</div>
+			<div style="height:38px"></div>
+			<div class ="topic-container" id="topic-container">
+				<h5 class="pretext" id="pretext">is this a real</h5>
 				<h1 id="topic">Great!</h1>
 			</div>
-			<br>
+			<div style="height:38px"></div>
 			<div class="box" id="box">
 				<div class="box-sub">
 					<h1 class="box-text" id="question">4/4</h1>
 				</div>
 				<div class="box-overlay">fake</div>
-		
 			</div>
 			<table class="questions-table">
 				<tbody>
-					<tr id="q0">
-						<td class="fake" id="fake"></td>
-						<td class="title hidden" id="title">Golden Ham</td>
-						<td id="correct">true</td>
+					<tr class="hidden" id="q0">
+						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
+						<td class="title hidden" id="title"><h2></h2></td>
+						<td id="correct"><img src="./assets/tick.svg"></td>
 					</tr>
-					<tr id="q1">
-						<td class="fake" id="fake">FAKE</td>
-						<td class="title hidden" id="title">Danklite</td>
-						<td id="correct">true</td>
+					<tr class="hidden" id="q1">
+						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
+						<td class="title hidden" id="title"><h2></h2></td>
+						<td id="correct"><img src="./assets/tick.svg"></td>
 					</tr>
-					<tr id="q2">
-						<td class="fake" id="fake"></td>
-						<td class="title hidden" id="title">Bismutotantalite</td>
-						<td id="correct">true</td>
+					<tr class="hidden" id="q2">
+						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
+						<td class="title hidden" id="title"><h2></h2></td>
+						<td id="correct"><img src="./assets/tick.svg"></td>
 					</tr>
-					<tr id="q3">
-						<td class="fake" id="fake">FAKE</td>
-						<td class="title hidden" id="title">Moonstone</td>
-						<td id="correct">true</td>
+					<tr class="hidden" id="q3">
+						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
+						<td class="title hidden" id="title"><h2></h2></td>
+						<td id="correct"><img src="./assets/tick.svg"></td>
 					</tr>
-					<tr id="q4">
-						<td class="fake" id="fake">FAKE</td>
-						<td class="title hidden" id="title">Moonstone</td>
-						<td id="correct">true</td>
+					<tr class="hidden" id="q4">
+						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
+						<td class="title hidden" id="title"><h2></h2></td>
+						<td id="correct"><img src="./assets/tick.svg"></td>
 					</tr>
-					<tr id="q5">
-						<td class="fake" id="fake">FAKE</td>
-						<td class="title hidden" id="title">Moonstone</td>
-						<td id="correct">true</td>
+					<tr class="hidden" id="q5">
+						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
+						<td class="title hidden" id="title"><h2></h2></td>
+						<td id="correct"><img src="./assets/tick.svg"></td>
 					</tr>
 				</tbody>
-			</table>
-		
-			<br><br>
-		
+			</table>	
+			<div style="height:42px"></div>
 			<div class="button-group">
-				<div class="button" id="button-fake">
-					<h2>FAKE</h2>
-				</div>
-				<div class="button" id="button-real">
+				<button class="button" id="button-fake">
+					<img src="./assets/button_text_fake.svg">
+				</button>
+				<button class="button" id="button-real">
 					<h2>REAL</h2>
-				</div>
-				<div class="button" id="button-new-puzzle">
+				</button>
+				<button class="button" id="button-new-puzzle">
 					<h2>NEW PUZZLE</h2>
-				</div>
+				</button>
+				<button class="button" id="button-share">
+					<h2>SHARE</h2>
+				</button>
 			</div>
 		</div>
 	</div>

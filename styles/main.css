@@ -1,28 +1,33 @@
 :root {
     --font-size-base: 25px;
     --font-size-button: 15px;
-    --base: #fff8e6;
     --color-black: #000000;
     --color-cream: #fff8e6;
     --color-grey: #D6D3A3;
+    --color-base: #fff8e6;
     --header-height: 26px;
+    --table-min-height:100;
+    --anim-page-transition-time:.5s;
+    --button-text-offset:-2%;
+    --min-width:250px;
+    --box-width:310px;
 }
 
 body {
     width: 100%;
     height: fit-content;
     margin: 0;
-    background-color: var(--base);
+    background-color: var(--color-base);
 }
 
 body.bgColorOn {
-    animation: bodyFadeIn ease .5s;
+    animation: bodyFadeIn ease var(--anim-page-transition-time);
     animation-iteration-count: 1;
     animation-fill-mode: both;
 }
 
 body.bgColorOff {
-    animation: bodyFadeOut ease .5s;
+    animation: bodyFadeOut ease var(--anim-page-transition-time);
     animation-iteration-count: 1;
     animation-fill-mode: both;
 }
@@ -33,13 +38,13 @@ body.bgColorOff {
     }
 
     100% {
-        background-color: var(--base);
+        background-color: var(--color-base);
     }
 }
 
 @keyframes bodyFadeOut {
     0% {
-        background-color: var(--base);
+        background-color: var(--color-base);
     }
 
     100% {
@@ -82,7 +87,7 @@ h3 {
 h4 {
     font-family: 'Quadrant';
     font-size: 14px;
-    letter-spacing: 0.02em;
+    letter-spacing: 0em;
     line-height: 17px;
     text-transform: none;
     font-weight: normal;
@@ -103,15 +108,44 @@ h5 {
     height: var(--header-height);
     margin: 0;
     padding: 0;
-    background-color: var(--base);
     text-align: center;
-    font-family: "Kyneton Regular";
 
     border-bottom: 1.5px solid black;
     position: sticky;
     top: 0;
     left: 0;
     z-index: 999;
+
+    animation: headerHome ease var(--anim-page-transition-time);
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+.header.ingame {
+    background-color: var(--color-cream);
+    animation: headerIngame ease var(--anim-page-transition-time);
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+@keyframes headerIngame {
+    0% {
+        background-color: var(--color-base);
+    }
+    
+    100% {
+        background-color: var(--color-cream);
+    }
+}
+
+@keyframes headerHome {
+    0% {
+        background-color: var(--color-cream);
+    }
+    
+    100% {
+        background-color: var(--color-base);
+    }
 }
 
 .pages {
@@ -165,31 +199,50 @@ h5 {
     background-size: contain;
     height: 55px;
     width: 130px;
+    padding-block: 0;
+    padding-inline: 0;
+    border-width: 0;
+    border-style: none;
+    border-color:black;
+    border-image: none;
+    background-color: Transparent;
 }
 
 .button:hover {
     background-image: url("../assets/button_hover.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    height: 55px;
-    width: 130px;
 }
 
 .button:active {
     background-image: url("../assets/button_front_selected.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    height: 55px;
-    width: 130px;
 }
 
 .button h2{
-    margin-top:-2%;
+    margin-top:var(--button-text-offset);
 }
 
 .button:active h2 {
+    margin-top: 0%;
+}
+
+.button img
+{
+    margin-top:var(--button-text-offset);
+}
+
+.button:active img
+{
+    margin-top: 0%;
+}
+
+.button:disabled {
+background-image: url("../assets/button_front_unselected.svg");
+   opacity: 0.7;
+}
+.button:disabled h2 {
+    margin-top: 0%;
+}
+.button:disabled img
+{
     margin-top: 0%;
 }
 
@@ -197,6 +250,7 @@ h5 {
 {
     display: flex; 
     align-items: center;
+    justify-content: center;
 }
 
 a:hover,
@@ -230,6 +284,17 @@ a:active {
     src: url("../fonts/QuadrantTextTrial-Regular.otf");
 }
 
+@media (max-width: 1920px) {
+    html {
+        font-size: 25px;
+    }
+
+    :root {
+        --min-width:250px;
+        --box-width:310px;
+    }
+}
+
 @media (max-width: 1700px) {
     html {
         font-size: 25px;
@@ -237,9 +302,7 @@ a:active {
 
     :root {
         --min-width: 250px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
+        --box-width:310px;
     }
 }
 
@@ -250,9 +313,7 @@ a:active {
 
     :root {
         --min-width: 250px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
+        --box-width:310px;
     }
 }
 
@@ -263,9 +324,7 @@ a:active {
 
     :root {
         --min-width: 250px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
+        --box-width:310px;
     }
 }
 
@@ -276,9 +335,7 @@ a:active {
 
     :root {
         --min-width: 250px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
+        --box-width:310px;
     }
 }
 
@@ -289,9 +346,7 @@ a:active {
 
     :root {
         --min-width: 250px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
+        --box-width:310px;
     }
 }
 
@@ -302,8 +357,6 @@ a:active {
 
     :root {
         --min-width: 250px;
-        --fullwidth: 100%;
-        --font-size-blurb: 35px;
-        --font-size-footer: 30px;
+        --box-width:310px;
     }
 }

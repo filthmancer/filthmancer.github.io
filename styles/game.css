@@ -3,9 +3,12 @@
     --box-fake: #000000;
     --box-text: #fbfbd3;
 
-    --overlay-rotation: 25deg;
-    --overlay-offset-y: -250px;
-    --overlay-offset-x: 50px;
+    --overlay-sign:1;
+    --box-rotation:9deg;
+    --box-translate:15%;
+    --overlay-rotation: calc(var(--box-rotation) * var(--overlay-sign));
+    --overlay-offset-y: -150px;
+    --overlay-offset-x: calc(var(--box-rotation) * var(--overlay-sign));
     --answer-anim-1-time: .5s;
     --answer-anim-2-time: 1s;
 }
@@ -15,17 +18,21 @@
     opacity: 0;
     position: fixed;
     width: 100%;
-    height:100%;
+    height:fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 
 .box {
-    background-color: var(--base);
+    background-color: var(--color-base);
     border-radius: 4px;
-    width: var(--fullwidth);
+    /* width: var(--fullwidth); */
     aspect-ratio: 1 / 1;
     margin: auto;
-    min-width: var(--min-width);
+    width: var(--box-width);
+    height: var(--box-width);
     min-height: var(--min-width);
     display: block;
     z-index: 2;
@@ -38,9 +45,8 @@
 
 .box-sub {
     display: flex;
-    width: var(--fullwidth);
     aspect-ratio: 1 / 1;
-    min-width: var(--min-width);
+    width: var(--box-width);
     min-height: var(--min-width);
     align-items: center;
     justify-content: center;
@@ -49,7 +55,8 @@
 .box-overlay {
     font-family: 'Kiddo Regular';
     z-index: 1;
-    font-size: 150px;
+    font-size: 115px;
+    line-height: 138px;
     text-align: center;
     align-self: center;
     position: relative;
@@ -57,7 +64,7 @@
     left: var(--overlay-offset-x);
     -webkit-transform: translate(0, 0) rotate(var(--overlay-rotation));
     /* Safari */
-    -moz-transform: translate(0, 0) otate(var(--overlay-rotation));
+    -moz-transform: translate(0, 0) rotate(var(--overlay-rotation));
     /* Firefox */
     -ms-transform: translate(0, 0) rotate(var(--overlay-rotation));
     /* IE */
@@ -73,17 +80,50 @@
 
 table {
     border-collapse: collapse;
-    width: var(--fullwidth);
     table-layout: fixed;
-    min-width: var(--min-width);
-    min-height: var(--min-width);
+    width: var(--box-width);
+    min-height: var(--table-min-height);
     z-index: -2;
 }
 
 tr {
-    border-bottom: 2px solid var(--base);
+    height: 26px;
+    border-bottom: 1.5px solid;
     border-radius: .5px;
 }
+
+tr.shown {
+    animation: trFadeIn ease .25s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+tr.hidden {
+    animation: trFadeOut ease .25s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+@keyframes trFadeIn {
+    0% {
+        border-color: var(--color-grey);
+    }
+
+    100% {
+        border-color: var(--color-base);
+    }
+}
+
+@keyframes trFadeOut {
+    0% {
+        border-color: var(--color-base);
+    }
+
+    100% {
+        border-color: var(--color-grey);
+    }
+}
+
 
 td {
     height: 100%;
@@ -105,17 +145,6 @@ td {
     width: 50px
 }
 
-.shown {
-    animation: fadeInAnimation ease .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-.hidden {
-    animation: fadeOutAnimation ease .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
 
 .hidden-button {
     display: none;
@@ -127,8 +156,32 @@ td {
     justify-content: center;
 }
 
-.button-6 {
-    margin: 5px;
+.button-group .button
+{
+    margin-left: 13px;
+    margin-right: 13px;
+}
+
+.topic-container
+{
+    position: relative;
+}
+
+.shown #title, .shown #fake, .shown #correct {
+    animation: fadeInAnimation ease .25s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+.hidden #title, .hidden #fake, .hidden #correct  {
+    animation: fadeOutAnimation ease .25s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+
+#correct
+{
+   text-align: right;
 }
 
 @keyframes fadeInAnimation {
@@ -187,13 +240,13 @@ td {
 
 @keyframes boxAnswerReal {
     0% {
-        rotate: 0deg;
+        rotate: 0;
         translate: 0px;
     }
 
     100% {
-        rotate: 25deg;
-        translate: 25%;
+        rotate: var(--box-rotation);
+        translate: var(--box-translate);
         background-color: var(--box-failed);
     }
 }
@@ -205,8 +258,8 @@ td {
     }
 
     100% {
-        rotate: -25deg;
-        translate: -25%;
+        rotate: calc(-1 * var(--box-rotation));
+        translate: calc(-1 * var(--box-translate));
         background-color: var(--box-fake);
         color: var(--box-text);
     }
@@ -222,15 +275,15 @@ td {
 
 @keyframes boxAnswerRealExit {
     0% {
-        rotate: 25deg;
-        translate: 25%;
+        rotate: var(--box-rotation);
+        translate: var(--box-translate);
         background-color: var(--box-failed);
         /* color:var(--box-text); */
     }
 
     100% {
-        rotate: 25deg;
-        translate: 25% 100%;
+        rotate: var(--box-rotation);
+        translate: var(--box-translate) 100%;
         background-color: var(--box-failed);
         opacity: 0;
         /* color:var(--box-text); */
@@ -240,15 +293,15 @@ td {
 
 @keyframes boxAnswerFakeExit {
     0% {
-        rotate: -25deg;
-        translate: -25%;
+        rotate: calc(-1 * var(--box-rotation));
+        translate: calc(-1 * var(--box-translate));
         background-color: var(--box-fake);
         color: var(--box-text);
     }
 
     100% {
-        rotate: -25deg;
-        translate: -25% 100%;
+        rotate: calc(-1 * var(--box-rotation));
+        translate: calc(-1 * var(--box-translate)) 100%;
         background-color: var(--box-fake);
         opacity: 0;
         color: var(--box-text);
@@ -276,14 +329,10 @@ td {
 
 
 .pretext {
-    font-family: 'Kiddo Regular';
-    font-size: 40px;
     text-align: center;
-    padding: 0;
-    margin: 0;
-    font-style: normal;
 }
 
 .fake {
     font-family: 'Kiddo Regular';
 }
+
