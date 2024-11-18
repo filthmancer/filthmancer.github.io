@@ -27,6 +27,11 @@
         width: 176px;
 }
 
+.image.anim
+{
+    height: 150px;
+}
+
 
 .footer {
     position: relative;

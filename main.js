@@ -4,7 +4,8 @@ var settings;
 
 var footer_text_format = "Edited by {0},<br>{1}.";
 var moment_format = "ddd DD MMM"
-var header_format = "#{0} — {1} — {2}";
+var header_text_format = "#{0} — {1} — {2}";
+var category_anim_format = "assets/anims/{0}.svg";
 
 var puzzles;
 var puzzle_today;
@@ -68,11 +69,15 @@ function init_home()
 
         var num = today.subtract(settings).days();
         num = num.toString().padStart(3, '0')
-        var text = header_format.format(num, 
+        var category = (puzzle_today.category ?? today_backup[1]);
+        var text = header_text_format.format(num, 
                                         today.format(moment_format), 
-                                        (puzzle_today.category ?? today_backup[1])
+                                        category
                                     );
         $("#header-index").text(text.toUpperCase());
+
+$(".image.anim").attr("src", category_anim_format.format(category.toLowerCase()));
+       
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
 

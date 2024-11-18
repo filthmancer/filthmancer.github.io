@@ -5,14 +5,13 @@
 <link href="./styles/home.css" rel="stylesheet" type="text/css" />
 <link href="./styles/main.css" rel="stylesheet" type="text/css" />
 <link href="./styles/game.css" rel="stylesheet" type="text/css" />
-<link rel="prefetch" href="./assets/button_unselected.svg" />
+<!-- <link rel="prefetch" href="./assets/button_unselected.svg" />
 <link rel="prefetch" href="./assets/button_hover.svg" />
 <link rel="prefetch" href="./assets/button_front_selected.svg" />
-<link rel="prefetch" href="./assets/button_front_unselected.svg" />
+<link rel="prefetch" href="./assets/button_front_unselected.svg" /> -->
 <link rel="prefetch" href="./assets/tick.svg" />
 <link rel="prefetch" href="./assets/button_text_fake.svg" />
 </head>
-
 
 <body class="bgColorOff">
 	<header class="header flexcontainer">
@@ -21,7 +20,10 @@
 	<div class="pages">
 		<div class = "page" id="home">
 			<div class="splash">
-				<img class="image logo" src="assets/logo_cuisine.svg">
+				<img class="image anim" src="assets/anims/nature.svg"
+				onerror="this.src='assets/anims/fallback.svg'"
+				></img>
+				<!-- <img class="image logo" src="assets/logo_cuisine.svg"> -->
 				<div style="height:13px"></div>
 				<img class="image logo-header" src="assets/logo_header.svg">
 				<div class="flexcontainer" style="height:88;">
