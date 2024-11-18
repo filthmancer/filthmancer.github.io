@@ -139,9 +139,7 @@ td {
 }
 
 
-.hidden-button {
-    display: none;
-}
+
 
 .button-group {
     display: flex;
@@ -149,7 +147,7 @@ td {
     justify-content: center;
 }
 
-.button-group .button
+.button-group rbfb-button
 {
     margin-left: 13px;
     margin-right: 13px;

@@ -8,7 +8,7 @@
     --header-height: 26px;
     --table-min-height:100;
     --anim-page-transition-time:.5s;
-    --button-text-offset:-2%;
+    --button-text-offset:-4px;
     --min-width:250px;
     --box-width:310px;
 }
@@ -204,9 +204,7 @@ display: block;
     display: box;
     box-pack: center;
     box-align: center;
-}
 
-.button {
     background-image: url("../assets/button_unselected.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -250,7 +248,8 @@ display: block;
 
 .button:disabled {
 background-image: url("../assets/button_front_unselected.svg");
-   opacity: 0.7;
+   background-color: var(--color-grey);
+   color: var(--color-grey);
 }
 .button:disabled h2 {
     margin-top: 0%;
@@ -258,6 +257,134 @@ background-image: url("../assets/button_front_unselected.svg");
 .button:disabled img
 {
     margin-top: 0%;
+}
+
+rbfb-button {
+    cursor: pointer;
+    color: black;
+
+    text-decoration: none;
+
+    font-size: var(--font-size-button);
+    font-family: 'Kyneton DemiBold';
+
+    font-weight: normal;
+    white-space: nowrap;
+
+    /* Internet Explorer 10 */
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+
+    /* Firefox */
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    /* Safari, Opera, and Chrome */
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    /* W3C */
+    display: box;
+    box-pack: center;
+    box-align: center;
+
+    height: 55px;
+    width: 132px;
+    padding-block: 0;
+    padding-inline: 0;
+    border-width: 0;
+    border-style: none;
+    border-color:black;
+    border-image: none;
+    background-color: Transparent;
+    position: relative;
+}
+
+rbfb-button svg {
+    position: absolute;
+    stroke:black ;
+    stroke-width:1.5; 
+    stroke-linejoin:round;
+    top:0;
+    left:0;
+  }
+
+rbfb-button svg.top {
+    fill:var(--color-cream);
+    margin-top: var(--button-text-offset);
+    z-index: -1;
+  }
+
+rbfb-button svg.bottom {
+    fill:var(--color-black);
+    z-index: -2;
+  }
+
+rbfb-button h2{
+    margin-top:calc(var(--button-text-offset)*2);
+}
+
+rbfb-button img
+{
+    margin-top:calc(var(--button-text-offset)*2);
+}
+
+
+rbfb-button:hover svg.top{
+    fill:var(--color-grey);
+}
+
+rbfb-button:active svg {
+    margin-top: 0%;
+}
+
+rbfb-button:active h2 {
+    margin-top: 0%;
+}
+
+
+rbfb-button:active img
+{
+    margin-top: 0%;
+}
+
+
+rbfb-button.disabled {
+   color: var(--color-grey);
+}
+
+rbfb-button.disabled svg.top{
+    fill: var(--color-cream);
+ }
+rbfb-button.disabled h2 {
+    margin-top: 0%;
+}
+
+rbfb-button.disabled svg
+{
+    stroke:var(--color-grey) ;
+    margin-top: 0px;
+}
+
+
+rbfb-button.disabled img
+{
+    margin-top: 0%;
+    filter: invert(93%) sepia(10%) saturate(913%) hue-rotate(9deg) brightness(93%) contrast(86%);
+}
+
+
+rbfb-button.disabled .bottom {
+    fill:var(--color-grey);
+    z-index: -2;
+  }
+
+
+rbfb-button.hidden {
+    display: none;
 }
 
 .flexcontainer

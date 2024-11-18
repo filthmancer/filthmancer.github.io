@@ -4,6 +4,7 @@ var settings;
 
 var footer_text_format = "Edited by {0},<br>{1}.";
 var moment_format = "ddd DD MMM"
+var header_format = "#{0} — {1} — {2}";
 
 var puzzles;
 var puzzle_today;
@@ -57,13 +58,20 @@ function init_home()
         var baseColor = puzzle_today.color ?? today_backup[2];
         document.documentElement.style.setProperty('--color-base', baseColor);
 
+        var button = $("#button-test");
+        button.click(() =>
+            {
+                $("#button-test").disabled = true;
+            });
+
         $("body").attr("class", "bgColorOn");
 
         var num = today.subtract(settings).days();
-        var text = "#" + num.toString().padStart(3, '0')
-        text += " - " + today.format("ddd DD MMM");
-        //moment().format("ddd DD MMM");
-        text += " - " + (puzzle_today.category ?? today_backup[1]);
+        num = num.toString().padStart(3, '0')
+        var text = header_format.format(num, 
+                                        today.format(moment_format), 
+                                        (puzzle_today.category ?? today_backup[1])
+                                    );
         $("#header-index").text(text.toUpperCase());
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
@@ -91,6 +99,7 @@ function init_home()
 }
 function init_game()
 {
+
     $("#button-real").click(function ()
     {
         answerQuestion(true)
@@ -107,6 +116,9 @@ function init_game()
         {
             share();
         });
+
+     
+    
 
     $("header").addClass("ingame");
     getnewpuzzle();
@@ -185,8 +197,8 @@ function answerQuestion(answer)
     if (!isReal)
         $("#question").attr("class", "box-text box-answer-text")
 
-    $("#button-fake").attr("disabled", "disabled")
-    $("#button-real").attr("disabled", "disabled")
+    $("#button-fake").addClass("disabled")
+    $("#button-real").addClass("disabled")
     setTimeout(() =>
     {
         document.documentElement.style.setProperty('--overlay-sign', isReal ? -1:1);
@@ -200,8 +212,8 @@ function answerQuestion(answer)
             setTimeout(() =>
             {
                 box.attr("class", "box box-arrive");
-                $("#button-fake").removeAttr("disabled")
-                $("#button-real").removeAttr("disabled")
+                $("#button-fake").removeClass("disabled")
+                $("#button-real").removeClass("disabled")
 
                 updateQuestion();
                 updateList();
@@ -233,17 +245,17 @@ function set_button_state(active)
 {
     if (active)
     {
-        $("#button-new-puzzle").addClass("hidden-button")
-        $("#button-share").addClass("hidden-button")
-        $("#button-fake").removeClass("hidden-button")
-        $("#button-real").removeClass("hidden-button")
+        $("#button-new-puzzle").addClass("hidden")
+        $("#button-share").addClass("hidden")
+        $("#button-fake").removeClass("hidden")
+        $("#button-real").removeClass("hidden")
     }
     else
     {
-        // $("#button-new-puzzle").removeClass("hidden-button")
-        $("#button-share").removeClass("hidden-button")
-        $("#button-fake").addClass("hidden-button")
-        $("#button-real").addClass("hidden-button")
+        // $("#button-new-puzzle").removeClass("hidden")
+        $("#button-share").removeClass("hidden")
+        $("#button-fake").addClass("hidden")
+        $("#button-real").addClass("hidden")
     }
 
 }
@@ -285,3 +297,15 @@ function shuffleArray(array)
         array[j] = temp;
     }
 }
+
+customElements.define("rbfb-button", class extends HTMLElement {
+
+    connectedCallback() {
+        var shape = `<svg [ID] width="100%" height="100% "  stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" />
+        </svg>`;
+      this.innerHTML = shape.replace("[ID]", "class=bottom") +
+                        shape.replace("[ID]", "class=top")  + 
+                         this.innerHTML;
+    }
+  });
