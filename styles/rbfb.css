@@ -73,16 +73,19 @@ rbfb-button img {
     top: calc(var(--button-text-offset));
 }
 
-rbfb-button:hover svg.top {
-    margin-top: 0;
-}
+@media(hover: hover) and (pointer: fine) {
 
-rbfb-button:hover h2 {
-    margin-top: 0;
-}
+    rbfb-button:hover svg.top {
+        margin-top: 0;
+    }
 
-rbfb-button:hover img {
-    top: 0;
+    rbfb-button:hover h2 {
+        margin-top: 0;
+    }
+
+    rbfb-button:hover img {
+        top: 0;
+    }
 }
 
 rbfb-button:active svg.top {
@@ -136,13 +139,12 @@ rbfb-button.hidden {
 }
 
 
-rbfb-list-item
-{
+rbfb-list-item {
     display: flex;
     align-items: center;
     margin: 0;
     padding: 0;
-    
+
     height: 25px;
     border-bottom: 1.5px solid;
     border-radius: .5px;
