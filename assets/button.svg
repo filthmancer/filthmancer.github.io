@@ -1,3 +1,9 @@
-<svg width="132" height="54" viewBox="0 0 132 54" fill="none" xmlns="http://www.w3.org/2000/svg"  style="stroke:black">
-<path d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" stroke-width="1.5" stroke-linejoin="round"/>
+<svg id="button" width="132" height="54" viewBox="-5 -5 137 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<link xmlns="http://www.w3.org/1999/xhtml" rel="stylesheet" href="../styles/main.css" type="text/css" />
+	<g id="bottom">
+		<path  d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" stroke-width="1.5" stroke-linejoin="round" />
+	</g>
+	<g id="top" >
+		<path d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" stroke-width="1.5" stroke-linejoin="round" />
+	</g>
 </svg>

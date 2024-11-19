@@ -17,11 +17,9 @@
 
 }
 
-
 .box {
     background-color: var(--color-base);
     border-radius: 4px;
-    /* width: var(--fullwidth); */
     aspect-ratio: 1 / 1;
     margin: auto;
     width: var(--box-width);

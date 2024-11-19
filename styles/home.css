@@ -1,15 +1,13 @@
-
-
 .splash {
     position: relative;
-        width: 100%;
-        height: fit-content;
+    width: 100%;
+    height: fit-content;
     display: flex;
     min-height: 200px;
-        min-width: var(--min-width);
-    justify-content:start;
-    align-items:center;
-    padding-top:138px;
+    min-width: var(--min-width);
+    justify-content: start;
+    align-items: center;
+    padding-top: 138px;
     flex-direction: column;
     text-align: center;
 }
@@ -24,11 +22,10 @@
 
 .image.logo-header {
     height: 62px;
-        width: 176px;
+    width: 176px;
 }
 
-.image.anim
-{
+.image.anim {
     height: 170px;
 }
 

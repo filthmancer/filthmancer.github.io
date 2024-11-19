@@ -37,23 +37,8 @@ jQuery(document).ready(function ()
                 init_home();
             });
     }
-   
 
 });
-
-function onsvgload()
-{
-    var a = document.getElementById("test");
-    console.log(a);
-        console.log(a.contentDocument);
-        // get the inner DOM of alpha.svg
-        var svgDoc = a.contentDocument;
-        console.log(svgDoc)
-        // get the inner element by id
-        var delta = svgDoc.getElementById("svg");
-        // add behaviour
-        console.log(delta)
-}
 
 function init_data(json)
 {
@@ -65,7 +50,13 @@ function init_data(json)
     settings = json.settings;
     //puzzle_today = puzzles.find(p => p.id == now);
 }
+function load_fallback(object, fallback)
+{
+    console.log(fallback); 
+    $(object).data='assets/anims/fallback.svg'; 
+   $(object).load('assets/anims/fallback.svg');
 
+}
 
 function init_home()
 {
@@ -75,7 +66,7 @@ function init_home()
         var today_backup = backup[today.day()];
 
         var baseColor = puzzle_today.color ?? today_backup[2];
-        document.documentElement.style.setProperty('--color-base', baseColor);
+        document.documentElement.style.setProperty('--color-base', "#"+baseColor);
 
         var button = $("#button-test");
         button.click(() =>
@@ -94,10 +85,12 @@ function init_home()
                                     );
         $("#header-index").text(text.toUpperCase());
 
-$(".image.anim").attr("src", category_anim_format.format(category.toLowerCase()));
-
-
-
+        fetch(category_anim_format.format(category.toLowerCase()))
+        .then(img => 
+        {
+            if(img.ok)
+                $(".image.anim").attr("data", category_anim_format.format(category.toLowerCase()));
+        });
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
 
@@ -199,16 +192,6 @@ function updateList()
         $(name + " #title h2").text(e[0]);
         $(name + " #correct img").css("visibility", answered  && answers[index] == e[1]?"visible":"hidden" )
         $(name + " #fake img").css("visibility",answered && !e[1]?"visible":"hidden" )
-        /* 
-        title.attr("class", answered ? "title shown" : "title hidden");
-
-        var fake = $(name + " #fake");
-        fake.text(answered && !e[1] ? "FAKE" : "");
-        fake.attr("class", "fake " + (answered ? "shown" : "hidden"));
-
-        var correct = $(name + " #correct");
-        correct.text(answered ? (answers[index] == e[1]) : "");
-        correct.attr("class", (answered ? "shown" : "hidden")); */
     }
 }
 function answerQuestion(answer)
@@ -227,8 +210,6 @@ function answerQuestion(answer)
     setTimeout(() =>
     {
         document.documentElement.style.setProperty('--overlay-sign', isReal ? -1:1);
-        // document.documentElement.style.setProperty('--overlay-rotation', isReal ? "-9deg" : "9deg");
-        // document.documentElement.style.setProperty('--overlay-offset-x', isReal ? "50px" : "-50px");
         $("#box .box-overlay").show();
         $("#box .box-overlay").text(isReal ? "real" : "fake");
         setTimeout(() =>
@@ -253,7 +234,7 @@ function endGame()
     $("#box .box-overlay").hide();
     $("#question").attr("class", "box-text")
     $("#pretext").text("nice work finding the real");
-    $("#topic-container #topic").text(puzzle_today.topic + "s");
+    $("#topic-container #topic").text(puzzle_today.topic);
     
     var correct = 0;
     answers.forEach((a, index) =>
@@ -326,11 +307,13 @@ function shuffleArray(array)
 customElements.define("rbfb-button", class extends HTMLElement {
 
     connectedCallback() {
-        var shape = `<svg [ID] width="100%" height="100% "  stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        var shape = `<svg [ID] width="100%" height="100% " stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" />
         </svg>`;
+
+        var button = `<object class="sub" type="image/svg+xml" data="./assets/button.svg"></object>`;
       this.innerHTML = shape.replace("[ID]", "class=bottom") +
-                        shape.replace("[ID]", "class=top")  + 
+                       shape.replace("[ID]", "class=top")  + 
                          this.innerHTML;
     }
   });
