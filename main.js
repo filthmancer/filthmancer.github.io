@@ -1,11 +1,17 @@
 var json_add = 'https://filthmancer.github.io/puzzles.json';
 var backup;
+var json;
 var settings;
 
-var footer_text_format = "Edited by {0},<br>{1}.";
-var moment_format = "ddd DD MMM"
-var header_text_format = "#{0} — {1} — {2}";
-var category_anim_format = "assets/anims/{0}.svg";
+var strings = 
+{
+    footer_text_format : "Edited by {0},<br>{1}.",
+    moment_format : "ddd DD MMM",
+    header_text_format : "#{0} — {1} — {2}",
+    category_anim_format : "assets/anims/{0}.svg",
+    blurb : "are these real",
+}
+
 
 var puzzles;
 var puzzle_today;
@@ -14,6 +20,8 @@ var question_index = 0;
 var question_state = () => questions[question_index][1];
 var answers = []
 
+var puzzle_override =  "20241125";
+var activepage;
 
 jQuery(document).ready(function ()
 {
@@ -31,8 +39,9 @@ jQuery(document).ready(function ()
     {
         fetch(json_add, { cache: "reload" })
             .then((response) => response.json())
-            .then((json) => 
+            .then((_json) => 
             {
+                json = _json;
                 init_data(json);
                 init_home();
             });
@@ -44,18 +53,18 @@ function init_data(json)
 {
     puzzles = json.puzzles;
 
-    var index = irand(puzzles.length);
-    puzzle_today = puzzles[index];
     backup = json.backup;
     settings = json.settings;
-    //puzzle_today = puzzles.find(p => p.id == now);
-}
-function load_fallback(object, fallback)
-{
-    console.log(fallback); 
-    $(object).data='assets/anims/fallback.svg'; 
-   $(object).load('assets/anims/fallback.svg');
+    
+    puzzle_today = puzzles.find(p => p.id == moment().format(strings.moment_format));
+    if(puzzle_today == null)
+    {
+        var index = irand(puzzles.length);
+        puzzle_today = puzzles[index];
+    }
 
+    if(puzzle_override) 
+        puzzle_today = puzzles.find(p =>  p.id == puzzle_override);
 }
 
 function init_home()
@@ -79,45 +88,54 @@ function init_home()
         var num = today.subtract(settings).days();
         num = num.toString().padStart(3, '0')
         var category = (puzzle_today.category ?? today_backup[1]);
-        var text = header_text_format.format(num, 
-                                        today.format(moment_format), 
+        var text = strings.header_text_format.format(num, 
+                                        today.format(strings.moment_format), 
                                         category
                                     );
         $("#header-index").text(text.toUpperCase());
 
-        fetch(category_anim_format.format(category.toLowerCase()))
+        var link = puzzle_today.editor.link(puzzle_today.editor_link);
+
+        text = strings.footer_text_format.format(link, puzzle_today.editor_blurb);
+        $("#footer-text").html(text);
+
+        fetch(strings.category_anim_format.format(category.toLowerCase()))
         .then(img => 
         {
             if(img.ok)
-                $(".image.anim").attr("data", category_anim_format.format(category.toLowerCase()));
-        });
+                $(".anim").attr("data", strings.category_anim_format.format(category.toLowerCase()));
+        });      
 
-        var link = puzzle_today.editor.link(puzzle_today.editor_link);
+        move_to_page("home");
 
-        text = footer_text_format.format(link, puzzle_today.editor_blurb);
-        $("#footer-text").html(text);
-
-        $('#home').fadeTo('slow', 1, function ()
-        {
-            $("#button-play").bind('click', e =>
+        $("#button-play").bind('click', e =>
             {
                 init_game();
                 $("body").attr("class", "bgColorOff");
-                $('#home').fadeTo('fast', 0, () =>
-                {
-                    $("#home").addClass("ignore-input");
-                    $('#game').fadeTo('fast', 1, () =>
-                    {
-                        $("#game").removeClass("ignore-input");
-                    });
-                })
+                move_to_page("game");
             });
-        });
     }
+}
+
+function move_to_page(page)
+{
+    var p=  $("#"+page)[0];
+    if(p == null)
+    {
+        console.log("error finding page " + page);
+        return;
+    }
+    if(activepage)
+        activepage.toggleClass("shown hidden");
+    activepage = $("#"+page);
+
+    // $("#home").toggleClass("shown hidden");
+    // $("#about").toggleClass("shown hidden");
+    // $("#game").toggleClass("shown hidden");
+    activepage.toggleClass("hidden shown");
 }
 function init_game()
 {
-
     $("#button-real").click(function ()
     {
         answerQuestion(true)
@@ -135,24 +153,18 @@ function init_game()
             share();
         });
 
-     
     
-
     $("header").addClass("ingame");
     getnewpuzzle();
 }
 function getnewpuzzle()
 {
-    var puzzle_index = irand(puzzles.length)
-    puzzle_today = puzzles[puzzle_index];
-
     questions = puzzle_today.questions;
     shuffleArray(questions);
     question_index = 0;
 
     answers = [];
-    $("#topic-container #pretext").attr("class", "pretext shown");
-    $("#pretext").text("is this a real");
+    $("#pretopic").text(strings.blurb);
     set_button_state(true);
     updateQuestion();
     updateList();
@@ -169,6 +181,12 @@ function updateQuestion()
     if (question_index < questions.length)
     {
         $("#topic").text(puzzle_today.topic + "?");
+        var count = puzzle_today.topic.length;
+        console.log(count);
+        if(count > 20)
+        {
+            $("#topic").addClass("mini");
+        }
         $("#question").text(questions[question_index][0]);
         $("#box .box-overlay").hide();
         $("#question").attr("class", "box-text")
@@ -188,7 +206,7 @@ function updateList()
         let answered = answers.length > index;
         let name = '#q' + index;
 
-        $(name).attr("class", answered ? "shown":"hidden");
+        $(name).attr("class", "questions-grid " + (answered ? "shown":"hidden"));
         $(name + " #title h2").text(e[0]);
         $(name + " #correct img").css("visibility", answered  && answers[index] == e[1]?"visible":"hidden" )
         $(name + " #fake img").css("visibility",answered && !e[1]?"visible":"hidden" )
@@ -230,10 +248,11 @@ function answerQuestion(answer)
 
 function endGame()
 {
-    $("#topic-container #pretext").attr("class", "pretext hidden");
     $("#box .box-overlay").hide();
     $("#question").attr("class", "box-text")
-    $("#pretext").text("nice work finding the real");
+    $("#pretopic").text("nice work finding the real");
+
+ 
     $("#topic-container #topic").text(puzzle_today.topic);
     
     var correct = 0;
@@ -311,9 +330,19 @@ customElements.define("rbfb-button", class extends HTMLElement {
         <path d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" />
         </svg>`;
 
-        var button = `<object class="sub" type="image/svg+xml" data="./assets/button.svg"></object>`;
       this.innerHTML = shape.replace("[ID]", "class=bottom") +
                        shape.replace("[ID]", "class=top")  + 
                          this.innerHTML;
     }
   });
+
+  customElements.define("rbfb-list-item", class extends HTMLElement {
+
+    connectedCallback() {
+        var shape = `<div class="fake" id="fake"><img src="./assets/button_text_fake.svg"></div>
+					<div class="title hidden" id="title"><h2></h2></div>
+					<div id="correct"><img src="./assets/tick.svg">`;
+        var end = `</div>`;
+      this.innerHTML = shape.replace("[ID]", this.id) + this.innerHTML + end;
+    }
+  });  

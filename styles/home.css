@@ -7,28 +7,18 @@
     min-width: var(--min-width);
     justify-content: start;
     align-items: center;
-    padding-top: 138px;
     flex-direction: column;
     text-align: center;
 }
 
-.image {
-    min-width: 40%;
-}
-
-.image.logo {
-    height: 150px;
-}
-
-.image.logo-header {
+.logo-header {
     height: 62px;
-    width: 176px;
+    width: 166px;
 }
 
-.image.anim {
+.anim {
     height: 170px;
 }
-
 
 .footer {
     position: relative;

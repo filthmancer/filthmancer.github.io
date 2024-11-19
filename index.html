@@ -1,44 +1,53 @@
 <!DOCTYPE html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="./styles/home.css" rel="stylesheet" type="text/css" />
-<link href="./styles/main.css" rel="stylesheet" type="text/css" />
-<link href="./styles/game.css" rel="stylesheet" type="text/css" />
-<link rel="prefetch" href="./assets/tick.svg" />
-<link rel="prefetch" href="./assets/button_text_fake.svg" />
+	<link href="./styles/home.css" rel="stylesheet" type="text/css" />
+	<link href="./styles/main.css" rel="stylesheet" type="text/css" />
+	<link href="./styles/game.css" rel="stylesheet" type="text/css" />
+	<link href="./styles/about.css" rel="stylesheet" type="text/css" />
+	<link rel="prefetch" href="./assets/tick.svg" />
+	<link rel="prefetch" href="./assets/button_text_fake.svg" />
+	<link rel="prefetch" href="./assets/anims/fallback.svg" />
 </head>
-
 
 <body class="bgColorOff">
 	<header class="header flexcontainer">
 		<h2 id="header-index">#243 - MON 26 OCT - NATURE</h2>
 	</header>
 	<div class="pages">
-		<div class = "page" id="home">
+		<!-- HOME -->
+		<div class="page hidden" id="home">
 			<div class="splash">
-				<object id="test" type="image/svg+xml" data="assets/anims/fallback.svg" class="image anim"></object>
-				<div style="height:13px"></div>
-				<img class="image logo-header" src="assets/logo_header.svg">
+				<div style="height:126px"></div>
+				<object id="test" type="image/svg+xml" data="assets/anims/fallback.svg" class="anim"></object>
+				<img class="logo-header" src="assets/logo_header.svg">
+				<div style="height:20px"></div>
 				<div class="flexcontainer" style="height:88;">
 					<h3>Sort the real from the fakes,<br>with new topics daily.</h3>
 				</div>
-				<div style="height:13px"></div>
-				<rbfb-button id="button-play" ><h2>PLAY</h2></rbfb-button>
+				<div style="height:5px"></div>
+				<rbfb-button id="button-play">
+					<h2>PLAY</h2>
+				</rbfb-button>
+				<div style="height:18px"></div>
+				<div class="footer">
+					<h4 id="footer-text">
+						Edited by
+					</h4 id="footer-text">
+				</div>
 			</div>
-			<div style="height:38px"></div>
-			<div class="footer">
-				<h4 id="footer-text">
-					Edited by
-				</h4 id="footer-text">
-			</div>
+
 		</div>
-		
-		<div  id="game" class="page ignore-input">
+
+		<!-- GAME -->
+		<div class="page hidden" id="game">
 			<div style="height:38px"></div>
-			<div class ="topic-container" id="topic-container">
-				<h5 class="pretext" id="pretext">is this a real</h5>
+			<div class="topic-container" id="topic-container">
+				<h5 id="pretopic">are these real</h5>
+				<div style="height:7px"></div>
 				<h1 id="topic">Great!</h1>
 			</div>
 			<div style="height:38px"></div>
@@ -48,45 +57,15 @@
 				</div>
 				<div class="box-overlay">fake</div>
 			</div>
-			<table class="questions-table">
-				<tbody>
-					<tr class="hidden" id="q0">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-					<tr class="hidden" id="q1">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-					<tr class="hidden" id="q2">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-					<tr class="hidden" id="q3">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-					<tr class="hidden" id="q4">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-					<tr class="hidden" id="q5">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-					<tr class="hidden" id="q6">
-						<td class="fake" id="fake"><img src="./assets/button_text_fake.svg"></td>
-						<td class="title hidden" id="title"><h2></h2></td>
-						<td id="correct"><img src="./assets/tick.svg"></td>
-					</tr>
-				</tbody>
-			</table>	
+			<div class="questions">
+				<rbfb-list-item id="q0"></rbfb-list-item>
+				<rbfb-list-item id="q1"></rbfb-list-item>
+				<rbfb-list-item id="q2"></rbfb-list-item>
+				<rbfb-list-item id="q3"></rbfb-list-item>
+				<rbfb-list-item id="q4"></rbfb-list-item>
+				<rbfb-list-item id="q5"></rbfb-list-item>
+				<rbfb-list-item id="q6"></rbfb-list-item>
+			</div>
 			<div style="height:42px"></div>
 			<div class="button-group">
 
@@ -104,14 +83,44 @@
 				</rbfb-button>
 			</div>
 		</div>
-	</div>
-	
-	
-</body>
 
+		<!-- ABOUT -->
+		<div class="page hidden" id="about">
+			<div class="about-header">
+				<h2>How to Play</h2>
+			</div>
+			<div class="about-item" id="htp-0">
+				<div class="title" id="title">
+					<h4>Guess if each of the 7 prompts are real or fake (made up).</h4>
+				</div>
+				<img src="./assets/button.png">
+			</div>
+			<div class="about-item" id="htp-1">
+				<div class="title" id="title">
+					<h4>The number of fakes varies. They could all be fake!</h4>
+				</div>
+				<img src="./assets/button.png">
+			</div>
+			<div class="about-item" id="htp-2">
+				<div class="title" id="title">
+					<h4>Enjoy new puzzle topics daily and strive for a high score.</h4>
+				</div>
+				<img src="./assets/button.png">
+			</div>
+			<div class="about-item" id="htp-3">
+				<div class="title" id="title">
+					<h4>Hit the share button to let your pals know how you did!</h4>
+				</div>
+				<img src="./assets/button.png">
+			</div>
+			<div style="height:26px"></div>
+			<div class="about-header-2">
+				<h2>Themes</h2>
+			</div>
+		</div>
+	</div>
+</body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
 <script src="./moment.js"></script>
 <script src="./main.js?v=2"></script>
-<!-- <rbfb-button id="button-test" ><h2>PLAY</h2></rbfb-button> -->
-

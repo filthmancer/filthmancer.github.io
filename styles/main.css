@@ -11,7 +11,16 @@
     --button-text-offset: -4px;
     --min-width: 250px;
     --box-width: 310px;
-    --framerate:1s;
+    --topic-width: 350px;
+    --framerate: 1s;
+}
+
+html
+{
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -22,35 +31,13 @@ body {
 }
 
 body.bgColorOn {
-    animation: bodyFadeIn ease var(--anim-page-transition-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
+    background-color: var(--color-base);
+    transition: background-color .5s;
 }
 
 body.bgColorOff {
-    animation: bodyFadeOut ease var(--anim-page-transition-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-@keyframes bodyFadeIn {
-    0% {
-        background-color: var(--color-cream);
-    }
-
-    100% {
-        background-color: var(--color-base);
-    }
-}
-
-@keyframes bodyFadeOut {
-    0% {
-        background-color: var(--color-base);
-    }
-
-    100% {
-        background-color: var(--color-cream);
-    }
+    background-color: var(--color-cream);
+    transition: background-color .5s;
 }
 
 
@@ -64,9 +51,14 @@ h1 {
     margin: 0;
 }
 
+h1.mini {
+    font-size: 20pt;
+    line-height: 22pt;
+}
+
 h2 {
     font-family: 'Kyneton DemiBold';
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.02em;
     line-height: 17px;
     text-transform: uppercase;
@@ -117,17 +109,15 @@ h5 {
     left: 0;
     z-index: 999;
 
-    animation: headerHome ease var(--anim-page-transition-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
+    background-color: var(--color-base);
+    transition: background-color .5s;
 }
 
 .header.ingame {
+    transition: background-color .5s;
     background-color: var(--color-cream);
-    animation: headerIngame ease var(--anim-page-transition-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
 }
+
 
 @keyframes headerIngame {
     0% {
@@ -167,8 +157,8 @@ h5 {
     /* They take up the full width of the parent */
     height: fit-content;
     margin: 0;
-    opacity: 0;
     grid-area: 1 / 1;
+    opacity: 0;
 }
 
 rbfb-button {
@@ -213,7 +203,7 @@ rbfb-button {
     border-image: none;
     background-color: Transparent;
     position: relative;
-    margin-top:calc(-1* var(--button-text-offset))
+    margin-top: calc(-1* var(--button-text-offset))
 }
 
 rbfb-button svg {
@@ -308,6 +298,21 @@ rbfb-button.hidden {
     display: none;
 }
 
+
+rbfb-list-item
+{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    
+    height: 26px;
+    border-bottom: 1.5px solid;
+    border-radius: .5px;
+}
+
+
+
 .flexcontainer {
     display: flex;
     align-items: center;
@@ -321,9 +326,22 @@ a:active {
     color: #000;
 }
 
-.ignore-input {
-    pointer-events: none
+.hidden {
+    pointer-events: none;
 }
+
+.page.shown
+{
+    opacity: 1;
+    transition:opacity .5s;
+}
+
+.page.hidden
+{
+    opacity: 0;
+    transition:opacity .5s;
+}
+
 
 @font-face {
     font-family: "Kiddo Regular";
@@ -353,6 +371,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
 
@@ -364,6 +383,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
 
@@ -375,6 +395,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
 
@@ -386,6 +407,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
 
@@ -397,6 +419,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
 
@@ -408,6 +431,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
 
@@ -419,5 +443,7 @@ a:active {
     :root {
         --min-width: 250px;
         --box-width: 310px;
+        --topic-width: 350px;
     }
 }
+

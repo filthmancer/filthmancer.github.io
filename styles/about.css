@@ -1,0 +1,63 @@
+#about {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    min-height: 200px;
+    min-width: var(--min-width);
+    justify-content: start;
+    align-items: center;
+    padding-top: 78px;
+    flex-direction: column;
+    text-align: center;
+}
+
+.about-header
+{
+    display: flex;
+    height:52px;
+    vertical-align: middle;
+    text-align: center;
+}
+.about-header h2
+{
+    margin: auto;
+}
+
+.about-item#htp-0
+{
+    border-top: 1.5px solid var(--color-grey);
+}
+
+.about-item
+{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    
+    width:306px;
+    height: 52px;
+    border-bottom: 1.5px solid var(--color-grey);
+    border-radius: .5px;
+}
+
+.about-item .title
+{
+    width:220px;
+    text-align: left;
+    vertical-align: middle;
+    margin-right: auto;
+}
+
+.about-item img
+{
+    width:50px;
+    height:100%;
+    margin-left: auto;
+}
+
+.about-item:first
+{
+    border-top: 1.5px solid var(--color-grey);
+}
