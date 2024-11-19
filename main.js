@@ -20,7 +20,7 @@ var question_index = 0;
 var question_state = () => questions[question_index][1];
 var answers = []
 
-var puzzle_override =  "20241125";
+var puzzle_override;
 var activepage;
 
 jQuery(document).ready(function ()
