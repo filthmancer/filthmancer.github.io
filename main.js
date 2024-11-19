@@ -14,7 +14,8 @@ var question_index = 0;
 var question_state = () => questions[question_index][1];
 var answers = []
 
-$(document).ready(function ()
+
+jQuery(document).ready(function ()
 {
     function defer(method)
     {
@@ -36,7 +37,23 @@ $(document).ready(function ()
                 init_home();
             });
     }
+   
+
 });
+
+function onsvgload()
+{
+    var a = document.getElementById("test");
+    console.log(a);
+        console.log(a.contentDocument);
+        // get the inner DOM of alpha.svg
+        var svgDoc = a.contentDocument;
+        console.log(svgDoc)
+        // get the inner element by id
+        var delta = svgDoc.getElementById("svg");
+        // add behaviour
+        console.log(delta)
+}
 
 function init_data(json)
 {
@@ -48,6 +65,7 @@ function init_data(json)
     settings = json.settings;
     //puzzle_today = puzzles.find(p => p.id == now);
 }
+
 
 function init_home()
 {
@@ -77,7 +95,9 @@ function init_home()
         $("#header-index").text(text.toUpperCase());
 
 $(".image.anim").attr("src", category_anim_format.format(category.toLowerCase()));
-       
+
+
+
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
 

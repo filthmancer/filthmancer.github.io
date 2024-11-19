@@ -22,11 +22,11 @@
 	<div class="pages">
 		<div class = "page" id="home">
 			<div class="splash">
-				<object id="test" type="image/svg+xml" data="./assets/button.svg" class="image anim" onload="onsvgload()"></object>
-
-				<!-- <img class="image anim" src="assets/anims/nature.svg"
+            <svg viewBox="0 0 160 40" xmlns="assets/anims/nature.svg">
+</svg>
+				<img class="image anim" src="assets/anims/nature.svg"
 				onerror="this.src='assets/anims/fallback.svg'"
-				></img> -->
+				></img>
 				<!-- <img class="image logo" src="assets/logo_cuisine.svg"> -->
 				<div style="height:13px"></div>
 				<img class="image logo-header" src="assets/logo_header.svg">
@@ -126,4 +126,3 @@
 <script src="./moment.js"></script>
 <script src="./main.js" defer="defer"></script>
 <!-- <rbfb-button id="button-test" ><h2>PLAY</h2></rbfb-button> -->
-
