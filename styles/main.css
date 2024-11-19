@@ -130,7 +130,6 @@ h5 {
     padding: 0;
     grid-template-columns: 100%;
     grid-template-rows: 100%;
-    margin-top: var(--header-height);
 }
 
 .page {
@@ -148,6 +147,21 @@ h5 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.pagecontainer {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    min-height: 200px;
+    min-width: var(--min-width);
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: auto;
+    /*  padding-top: 80px; */
 }
 
 a:hover,
