@@ -72,6 +72,7 @@ function init_home()
     if (puzzle_today)
     {
         var today = moment(puzzle_today.id);
+       
         var today_backup = backup[today.day()];
 
         var baseColor = puzzle_today.color ?? today_backup[2];
@@ -85,7 +86,8 @@ function init_home()
 
         $("body").attr("class", "bgColorOn");
 
-        var num = today.subtract(settings).days();
+        var epoch = moment(settings.epoch);
+        var num = moment.duration(today.diff(epoch)).asDays() + 1;
         num = num.toString().padStart(3, '0')
         var category = (puzzle_today.category ?? today_backup[1]);
         var text = strings.header_text_format.format(num, 
@@ -117,8 +119,17 @@ function init_home()
     }
 }
 
+function toggle_pages(a, b)
+{
+    var _a =  $("#"+a);
+    if(activepage[0] != _a[0])
+        move_to_page(a);
+    else move_to_page(b);
+}
+
 function move_to_page(page)
 {
+    console.log("moving to "+page);
     var p=  $("#"+page)[0];
     if(p == null)
     {

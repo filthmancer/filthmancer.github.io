@@ -19,3 +19,8 @@
     font-size: var(--font-size-footer);
     font-family: 'Quadrant';
 }
+
+#footer-text{
+    width:var(--box-width);
+    margin: auto;
+}
