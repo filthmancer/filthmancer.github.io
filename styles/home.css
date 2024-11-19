@@ -1,4 +1,12 @@
-.splash {
+#home
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#home .splash {
     position: relative;
     width: 100%;
     height: fit-content;
@@ -9,6 +17,8 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
+    margin: auto;
+    padding-top: 80px;
 }
 
 .logo-header {

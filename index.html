@@ -8,6 +8,7 @@
 	<link href="./styles/main.css" rel="stylesheet" type="text/css" />
 	<link href="./styles/game.css" rel="stylesheet" type="text/css" />
 	<link href="./styles/about.css" rel="stylesheet" type="text/css" />
+	<link href="./styles/rbfb.css" rel="stylesheet" type="text/css" />
 	<link rel="prefetch" href="./assets/tick.svg" />
 	<link rel="prefetch" href="./assets/button_text_fake.svg" />
 	<link rel="prefetch" href="./assets/anims/fallback.svg" />
@@ -21,18 +22,18 @@
 		<!-- HOME -->
 		<div class="page hidden" id="home">
 			<div class="splash">
-				<div style="height:126px"></div>
+				<!-- <div style="height:126px; min-height:126px"></div> -->
 				<object id="test" type="image/svg+xml" data="assets/anims/fallback.svg" class="anim"></object>
 				<img class="logo-header" src="assets/logo_header.svg">
-				<div style="height:20px"></div>
-				<div class="flexcontainer" style="height:88;">
+				<div style="min-height:20px"></div>
+				<div class="flexcontainer" style="min-height:88;">
 					<h3>Sort the real from the fakes,<br>with new topics daily.</h3>
 				</div>
-				<div style="height:5px"></div>
+				<div style="min-height:5px"></div>
 				<rbfb-button id="button-play">
 					<h2>PLAY</h2>
 				</rbfb-button>
-				<div style="height:18px"></div>
+				<div style="min-height:18px"></div>
 				<div class="footer">
 					<h4 id="footer-text">
 						Edited by
@@ -44,43 +45,44 @@
 
 		<!-- GAME -->
 		<div class="page hidden" id="game">
-			<div style="height:38px"></div>
-			<div class="topic-container" id="topic-container">
-				<h5 id="pretopic">are these real</h5>
-				<div style="height:7px"></div>
-				<h1 id="topic">Great!</h1>
-			</div>
-			<div style="height:38px"></div>
-			<div class="box" id="box">
-				<div class="box-sub">
-					<h1 class="box-text" id="question">4/4</h1>
+			<div class="splash">
+				<div class="topic-container" id="topic-container">
+					<h5 id="pretopic">are these real</h5>
+					<div style="min-height:7px"></div>
+					<h1 id="topic">Great!</h1>
 				</div>
-				<div class="box-overlay">fake</div>
-			</div>
-			<div class="questions">
-				<rbfb-list-item id="q0"></rbfb-list-item>
-				<rbfb-list-item id="q1"></rbfb-list-item>
-				<rbfb-list-item id="q2"></rbfb-list-item>
-				<rbfb-list-item id="q3"></rbfb-list-item>
-				<rbfb-list-item id="q4"></rbfb-list-item>
-				<rbfb-list-item id="q5"></rbfb-list-item>
-				<rbfb-list-item id="q6"></rbfb-list-item>
-			</div>
-			<div style="height:42px"></div>
-			<div class="button-group">
+				<div style="min-height:28px"></div>
+				<div class="box" id="box">
+					<div class="box-sub">
+						<h1 class="box-text" id="question">4/4</h1>
+					</div>
+					<div class="box-overlay">fake</div>
+				</div>
+				<div class="questions">
+					<rbfb-list-item id="q0"></rbfb-list-item>
+					<rbfb-list-item id="q1"></rbfb-list-item>
+					<rbfb-list-item id="q2"></rbfb-list-item>
+					<rbfb-list-item id="q3"></rbfb-list-item>
+					<rbfb-list-item id="q4"></rbfb-list-item>
+					<rbfb-list-item id="q5"></rbfb-list-item>
+					<rbfb-list-item id="q6"></rbfb-list-item>
+				</div>
+				<div class="button-group">
 
-				<rbfb-button id="button-fake">
-					<img src="./assets/button_text_fake.svg">
-				</rbfb-button>
-				<rbfb-button id="button-real">
-					<h2>REAL</h2>
-				</rbfb-button>
-				<rbfb-button id="button-new-puzzle">
-					<h2>NEW PUZZLE</h2>
-				</rbfb-button>
-				<rbfb-button id="button-share">
-					<h2>SHARE</h2>
-				</rbfb-button>
+					<rbfb-button id="button-fake">
+						<img src="./assets/button_text_fake.svg">
+					</rbfb-button>
+					<rbfb-button id="button-real">
+						<h2>REAL</h2>
+					</rbfb-button>
+					<rbfb-button id="button-new-puzzle">
+						<h2>NEW PUZZLE</h2>
+					</rbfb-button>
+					<rbfb-button id="button-share">
+						<h2>SHARE</h2>
+					</rbfb-button>
+
+				</div>
 			</div>
 		</div>
 
