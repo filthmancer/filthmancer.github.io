@@ -29,37 +29,42 @@
         [
             "Mon",
             "World",
-            "FF6921"
+            "#FF6921"
         ],
         [
             "Tue",
             "People",
-            "E08732"
+            "#E08732"
         ],
         [
             "Wed",
             "Food",
-            "F9D225"
+            "#F9D225"
         ],
         [
             "Thu",
             "Nature",
-            "88A74A"
+            "#88A74A"
         ],
         [
             "Fri",
             "Things",
-            "A0B3DD"
+            "#A0B3DD"
         ],
         [
             "Sat",
             "Arts",
-            "E292E7"
+            "#E292E7"
         ],
         [
             "Sun",
             "Leisure",
-            "FE9F9F"
+            "#FE9F9F"
+        ],
+        [
+            "?",
+            "Special",
+            "#C8F317"
         ]
     ],
     "puzzles": [
