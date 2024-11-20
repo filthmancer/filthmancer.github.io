@@ -74,6 +74,28 @@ function init_data(json)
 
     if (puzzle_override)
         puzzle_today = puzzles.find(p => p.id == puzzle_override);
+
+    $("#button-play").bind('click', e =>
+        {
+            move_to_page("game");
+        });
+
+    $("#button-real").click(function ()
+    {
+        answerQuestion(true)
+    });
+    $("#button-fake").click(function ()
+    {
+        answerQuestion(false)
+    });
+    $("#button-new-puzzle").click(() =>
+    {
+        getnewpuzzle();
+    });
+    $("#button-share").click(() =>
+    {
+        share();
+    });
 }
 
 function init_home()
@@ -81,17 +103,10 @@ function init_home()
     if (puzzle_today)
     {
         var today = moment(puzzle_today.id);
-
         var today_backup = backup[today.day()];
 
         var baseColor = puzzle_today.color ?? today_backup[2];
         document.documentElement.style.setProperty('--color-base', baseColor);
-
-        var button = $("#button-test");
-        button.click(() =>
-        {
-            $("#button-test").disabled = true;
-        });
 
         var epoch = moment(settings.epoch);
         var num = moment.duration(today.diff(epoch)).asDays() + 1;
@@ -104,14 +119,8 @@ function init_home()
         $("#header-index").text(text.toUpperCase());
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
-
         text = strings.footer_text_format.format(link, puzzle_today.editor_blurb);
         $("#footer-text").html(text);
-
-        $("#button-play").bind('click', e =>
-            {
-                move_to_page("game");
-            });
 
         fetch(strings.category_anim_format.format(category.toLowerCase()))
             .then(img => 
@@ -171,23 +180,6 @@ function move_to_last_page()
 
 function init_game()
 {
-    $("#button-real").click(function ()
-    {
-        answerQuestion(true)
-    });
-    $("#button-fake").click(function ()
-    {
-        answerQuestion(false)
-    });
-    $("#button-new-puzzle").click(() =>
-    {
-        getnewpuzzle();
-    });
-    $("#button-share").click(() =>
-    {
-        share();
-    });
-
     getnewpuzzle();
 }
 
