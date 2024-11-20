@@ -108,19 +108,19 @@ function init_home()
         text = strings.footer_text_format.format(link, puzzle_today.editor_blurb);
         $("#footer-text").html(text);
 
+        $("#button-play").bind('click', e =>
+            {
+                move_to_page("game");
+            });
+
         fetch(strings.category_anim_format.format(category.toLowerCase()))
             .then(img => 
             {
                 if (img.ok)
                     $(".anim").attr("data", strings.category_anim_format.format(category.toLowerCase()));
+
+                move_to_page("home");
             });
-
-        move_to_page("home");
-
-        $("#button-play").bind('click', e =>
-        {
-            move_to_page("game");
-        });
     }
 }
 
