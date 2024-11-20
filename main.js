@@ -32,7 +32,7 @@ var question_state = () => questions[question_index][1];
 var answers = []
 
 var puzzle_override;
-var activepage;
+var page_active, page_active_last;
 
 jQuery(document).ready(function ()
 {
@@ -119,7 +119,6 @@ function init_home()
 
         $("#button-play").bind('click', e =>
         {
-            // init_game();
             move_to_page("game");
         });
     }
@@ -128,35 +127,48 @@ function init_home()
 function toggle_pages(a, b)
 {
     var _a = $("#" + a);
-    if (activepage[0] != _a[0])
+    if (page_active[0] != _a[0])
         move_to_page(a);
-    else move_to_page(b);
+    else
+    {
+        if(b == null)
+             b = page_active_last.attr("id");
+        move_to_page(b);
+    } 
 }
 
-function move_to_page(page)
+function move_to_page(pageID)
 {
-    console.log("moving to " + page);
-    var p = $("#" + page)[0];
+    console.log("moving to " + pageID);
+    var p = $("#" + pageID)[0];
     if (p == null)
     {
-        console.log("error finding page " + page);
+        console.log("error finding page " + pageID);
         return;
     }
-    if (activepage)
-        activepage.toggleClass("shown hidden");
+    if (page_active)
+        page_active.toggleClass("shown hidden");
 
-    activepage = $("#" + page);
-    activepage.toggleClass("hidden shown");
+    page_active_last = page_active;
+    page_active = $("#" + pageID);
 
-    var color = bg_settings[page] ?? "color-cream";
+    page_active.toggleClass("hidden shown");
+
+    var color = bg_settings[pageID] ?? "color-cream";
     $("body").css("background-color", "var(" + color + ")");
     $("header").css("background-color", "var(" + color + ")");
 
-    if (pageCallback[page])
-        pageCallback[page]();
+    if (pageCallback[pageID])
+        pageCallback[pageID]();
 
     $(window).scrollTop(0);
 }
+
+function move_to_last_page()
+{
+    move_to_page(page_active_last.attr("id"));
+}
+
 function init_game()
 {
     $("#button-real").click(function ()
@@ -205,7 +217,6 @@ function updateQuestion()
     {
         $("#topic").text(puzzle_today.topic + "?");
         var count = puzzle_today.topic.length;
-        console.log(count);
         if (count > 20)
         {
             $("#topic").addClass("mini");

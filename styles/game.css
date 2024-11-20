@@ -13,10 +13,10 @@
     --answer-anim-2-time: 1s;
 }
 
-#game {
+/* #game {
     flex-direction: column;
 }
-
+ */
 .box {
     background-color: var(--color-base);
     border-radius: 4px;

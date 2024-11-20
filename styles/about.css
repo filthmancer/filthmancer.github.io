@@ -1,15 +1,6 @@
-#about {
-    position: relative;
-    width: 100%;
+
+.page.shown#about {
     height: fit-content;
-    display: flex;
-    min-height: 200px;
-    min-width: var(--min-width);
-    justify-content: start;
-    align-items: center;
-    padding-top: 78px;
-    flex-direction: column;
-    text-align: center;
 }
 
 .about-header {
@@ -32,8 +23,6 @@
 
     width: 100%;
     height: 52px;
-    /* border-bottom: 1.5px solid var(--color-grey); */
-    /* border-radius: .5px; */
 }
 
 .about-item .title {
@@ -49,9 +38,6 @@
     margin-left: auto;
 }
 
-.about-item:first {
-    /* border-top: 1.5px solid var(--color-grey); */
-}
 
 .about-grid {
     display: grid;
@@ -79,10 +65,3 @@
     text-align: justify;
 }
 
-spacer
-{
-    width:100%;
-    height:1px;
-    background-color: var(--color-grey);
-    border-radius: .5px;
-}
