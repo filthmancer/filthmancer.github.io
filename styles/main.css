@@ -28,15 +28,6 @@ body {
     height: 100vh;
     margin: 0;
     background-color: var(--color-base);
-}
-
-body.bgColorOn {
-    background-color: var(--color-base);
-    transition: background-color .5s;
-}
-
-body.bgColorOff {
-    background-color: var(--color-cream);
     transition: background-color .5s;
 }
 
@@ -59,7 +50,7 @@ h1.mini {
 
 h2 {
     font-family: 'Kyneton DemiBold';
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.02em;
     line-height: 17px;
     text-transform: uppercase;
@@ -112,11 +103,6 @@ h5 {
 
     background-color: var(--color-base);
     transition: background-color .5s;
-}
-
-.header.ingame {
-    transition: background-color .5s;
-    background-color: var(--color-cream);
 }
 
 .header #header-index
@@ -176,7 +162,7 @@ h5 {
 
 .pagecontainer {
     position: relative;
-    width: 100%;
+    width: var( --box-width);
     height: fit-content;
     display: flex;
     min-height: 200px;

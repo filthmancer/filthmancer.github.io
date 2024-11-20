@@ -3,15 +3,26 @@ var backup;
 var json;
 var settings;
 
-var strings = 
+var strings =
 {
-    footer_text_format : "Edited by {0},<br>{1}.",
-    moment_format : "ddd DD MMM",
-    header_text_format : "#{0} — {1} — {2}",
-    category_anim_format : "assets/anims/{0}.svg",
-    blurb : "are these real",
+    footer_text_format: "Edited by {0},<br>{1}.",
+    moment_format: "ddd DD MMM",
+    header_text_format: "#{0} — {1} — {2}",
+    category_anim_format: "assets/anims/{0}.svg",
+    blurb: "are these real",
 }
 
+var bg_settings = {
+    "home": "--color-base",
+    "game": "--color-cream",
+    "about": "--color-cream"
+};
+
+var pageCallback =
+{
+    "game": init_game,
+    "about": init_about,
+}
 
 var puzzles;
 var puzzle_today;
@@ -34,7 +45,6 @@ jQuery(document).ready(function ()
     }
 
     defer(init)
-
     function init()
     {
         fetch(json_add, { cache: "reload" })
@@ -46,7 +56,6 @@ jQuery(document).ready(function ()
                 init_home();
             });
     }
-
 });
 
 function init_data(json)
@@ -55,16 +64,16 @@ function init_data(json)
 
     backup = json.backup;
     settings = json.settings;
-    
+
     puzzle_today = puzzles.find(p => p.id == moment().format(strings.moment_format));
-    if(puzzle_today == null)
+    if (puzzle_today == null)
     {
         var index = irand(puzzles.length);
         puzzle_today = puzzles[index];
     }
 
-    if(puzzle_override) 
-        puzzle_today = puzzles.find(p =>  p.id == puzzle_override);
+    if (puzzle_override)
+        puzzle_today = puzzles.find(p => p.id == puzzle_override);
 }
 
 function init_home()
@@ -72,28 +81,26 @@ function init_home()
     if (puzzle_today)
     {
         var today = moment(puzzle_today.id);
-       
+
         var today_backup = backup[today.day()];
 
         var baseColor = puzzle_today.color ?? today_backup[2];
-        document.documentElement.style.setProperty('--color-base', "#"+baseColor);
+        document.documentElement.style.setProperty('--color-base', baseColor);
 
         var button = $("#button-test");
         button.click(() =>
-            {
-                $("#button-test").disabled = true;
-            });
-
-        $("body").attr("class", "bgColorOn");
+        {
+            $("#button-test").disabled = true;
+        });
 
         var epoch = moment(settings.epoch);
         var num = moment.duration(today.diff(epoch)).asDays() + 1;
         num = num.toString().padStart(3, '0')
         var category = (puzzle_today.category ?? today_backup[1]);
-        var text = strings.header_text_format.format(num, 
-                                        today.format(strings.moment_format), 
-                                        category
-                                    );
+        var text = strings.header_text_format.format(num,
+            today.format(strings.moment_format),
+            category
+        );
         $("#header-index").text(text.toUpperCase());
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
@@ -102,48 +109,53 @@ function init_home()
         $("#footer-text").html(text);
 
         fetch(strings.category_anim_format.format(category.toLowerCase()))
-        .then(img => 
-        {
-            if(img.ok)
-                $(".anim").attr("data", strings.category_anim_format.format(category.toLowerCase()));
-        });      
+            .then(img => 
+            {
+                if (img.ok)
+                    $(".anim").attr("data", strings.category_anim_format.format(category.toLowerCase()));
+            });
 
         move_to_page("home");
 
         $("#button-play").bind('click', e =>
-            {
-                init_game();
-                $("body").attr("class", "bgColorOff");
-                move_to_page("game");
-            });
+        {
+            // init_game();
+            move_to_page("game");
+        });
     }
 }
 
 function toggle_pages(a, b)
 {
-    var _a =  $("#"+a);
-    if(activepage[0] != _a[0])
+    var _a = $("#" + a);
+    if (activepage[0] != _a[0])
         move_to_page(a);
     else move_to_page(b);
 }
 
 function move_to_page(page)
 {
-    console.log("moving to "+page);
-    var p=  $("#"+page)[0];
-    if(p == null)
+    console.log("moving to " + page);
+    var p = $("#" + page)[0];
+    if (p == null)
     {
         console.log("error finding page " + page);
         return;
     }
-    if(activepage)
+    if (activepage)
         activepage.toggleClass("shown hidden");
-    activepage = $("#"+page);
 
-    // $("#home").toggleClass("shown hidden");
-    // $("#about").toggleClass("shown hidden");
-    // $("#game").toggleClass("shown hidden");
+    activepage = $("#" + page);
     activepage.toggleClass("hidden shown");
+
+    var color = bg_settings[page] ?? "color-cream";
+    $("body").css("background-color", "var(" + color + ")");
+    $("header").css("background-color", "var(" + color + ")");
+
+    if (pageCallback[page])
+        pageCallback[page]();
+
+    $(window).scrollTop(0);
 }
 function init_game()
 {
@@ -160,14 +172,14 @@ function init_game()
         getnewpuzzle();
     });
     $("#button-share").click(() =>
-        {
-            share();
-        });
+    {
+        share();
+    });
 
-    
-    $("header").addClass("ingame");
     getnewpuzzle();
 }
+
+
 function getnewpuzzle()
 {
     questions = puzzle_today.questions;
@@ -194,7 +206,7 @@ function updateQuestion()
         $("#topic").text(puzzle_today.topic + "?");
         var count = puzzle_today.topic.length;
         console.log(count);
-        if(count > 20)
+        if (count > 20)
         {
             $("#topic").addClass("mini");
         }
@@ -217,10 +229,10 @@ function updateList()
         let answered = answers.length > index;
         let name = '#q' + index;
 
-        $(name).attr("class", "questions-grid " + (answered ? "shown":"hidden"));
+        $(name).attr("class", "questions-grid " + (answered ? "shown" : "hidden"));
         $(name + " #title h2").text(e[0]);
-        $(name + " #correct img").css("visibility", answered  && answers[index] == e[1]?"visible":"hidden" )
-        $(name + " #fake img").css("visibility",answered && !e[1]?"visible":"hidden" )
+        $(name + " #correct img").css("visibility", answered && answers[index] == e[1] ? "visible" : "hidden")
+        $(name + " #fake img").css("visibility", answered && !e[1] ? "visible" : "hidden")
     }
 }
 function answerQuestion(answer)
@@ -238,7 +250,7 @@ function answerQuestion(answer)
     $("#button-real").addClass("disabled")
     setTimeout(() =>
     {
-        document.documentElement.style.setProperty('--overlay-sign', isReal ? -1:1);
+        document.documentElement.style.setProperty('--overlay-sign', isReal ? -1 : 1);
         $("#box .box-overlay").show();
         $("#box .box-overlay").text(isReal ? "real" : "fake");
         setTimeout(() =>
@@ -263,9 +275,9 @@ function endGame()
     $("#question").attr("class", "box-text")
     $("#pretopic").text("nice work finding the real");
 
- 
+
     $("#topic-container #topic").text(puzzle_today.topic);
-    
+
     var correct = 0;
     answers.forEach((a, index) =>
     {
@@ -293,6 +305,29 @@ function set_button_state(active)
         $("#button-fake").addClass("hidden")
         $("#button-real").addClass("hidden")
     }
+
+}
+
+function init_about()
+{
+    var gridchild = `<div class="about-grid-item" id="about-grid-item-{0}"><h2>{1} — {2}</h2></div>`;
+    var i = 0;
+    // for(var i = 0; i < Object.keys(backup).length; i++)
+    // {
+    backup.forEach(b =>
+    {
+        var id = "#about-grid-item-{0}".format(i);
+        var format = $(id);
+        if (format[0] == null)
+        {
+            format = $(gridchild.format(i, b[1], b[0]));
+            $(".about-grid").append(format);
+        }
+
+        format.css("background-color", b[2]);
+        i++;
+    });
+
 
 }
 
@@ -334,26 +369,30 @@ function shuffleArray(array)
     }
 }
 
-customElements.define("rbfb-button", class extends HTMLElement {
+customElements.define("rbfb-button", class extends HTMLElement
+{
 
-    connectedCallback() {
+    connectedCallback()
+    {
         var shape = `<svg [ID] width="100%" height="100% " stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 27C1 12.6406 12.6406 1 27 1H105C119.359 1 131 12.6406 131 27V27C131 41.3594 119.359 53 105 53H27C12.6406 53 1 41.3594 1 27V27Z" />
         </svg>`;
 
-      this.innerHTML = shape.replace("[ID]", "class=bottom") +
-                       shape.replace("[ID]", "class=top")  + 
-                         this.innerHTML;
+        this.innerHTML = shape.replace("[ID]", "class=bottom") +
+            shape.replace("[ID]", "class=top") +
+            this.innerHTML;
     }
-  });
+});
 
-  customElements.define("rbfb-list-item", class extends HTMLElement {
+customElements.define("rbfb-list-item", class extends HTMLElement
+{
 
-    connectedCallback() {
+    connectedCallback()
+    {
         var shape = `<div class="fake" id="fake"><img src="./assets/button_text_fake.svg"></div>
 					<div class="title hidden" id="title"><h2></h2></div>
 					<div id="correct"><img src="./assets/tick.svg">`;
         var end = `</div>`;
-      this.innerHTML = shape.replace("[ID]", this.id) + this.innerHTML + end;
+        this.innerHTML = shape.replace("[ID]", this.id) + this.innerHTML + end;
     }
-  });  
+});  
