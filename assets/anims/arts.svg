@@ -1,5 +1,6 @@
-<?xml version="1.0" ?>
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1080 1080" style="enable-background:new 0 0 1080 1080;" xml:space="preserve">
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" 
+	viewBox="0 0 1080 1080" style="enable-background:new 0 0 1080 1080;" xml:space="preserve">
 	<g id="1">
 		<animate attributeName="display" fill="freeze" begin="0s" repeatCount="indefinite" dur="0.6" values="inline;none;none;none;"/>
 		<path d="M730.3,977.8c-7.4,1.6-13.5,6.2-20.9,6.4c-1.9-4.7-3.7-9.3-5.7-14c1.7-3,4.6-4.1,7.6-5.1c2.9-1,5.6-2.1,8.2-5.2

@@ -8,7 +8,7 @@ var strings =
     footer_text_format: "Edited by {0},<br>{1}.",
     moment_format: "ddd DD MMM",
     header_text_format: "#{0} — {1} — {2}",
-    category_anim_format: "assets/anims/{0}.svg",
+    category_anim_format: "https://filthmancer.github.io/assets/anims/{0}.svg",
     blurb: "are these real",
 }
 
@@ -76,9 +76,9 @@ function init_data(json)
         puzzle_today = puzzles.find(p => p.id == puzzle_override);
 
     $("#button-play").bind('click', e =>
-        {
-            move_to_page("game");
-        });
+    {
+        move_to_page("game");
+    });
 
     $("#button-real").click(function ()
     {
@@ -122,13 +122,25 @@ function init_home()
         text = strings.footer_text_format.format(link, puzzle_today.editor_blurb);
         $("#footer-text").html(text);
 
+        logo_loaded = false;
         fetch(strings.category_anim_format.format(category.toLowerCase()))
             .then(img => 
             {
+                logo_loaded = true;
                 if (img.ok)
                     $(".anim").attr("data", strings.category_anim_format.format(category.toLowerCase()));
+            })
+            .catch((error) =>
+            {
+                logo_loaded = true;
+                console.log("logo loaded - catch")
+            });
 
-                move_to_page("home");
+
+        promiseWhen(_ => logo_loaded == true)
+            .then(() =>
+            {
+                move_to_page("home")
             });
     }
 }
@@ -140,10 +152,10 @@ function toggle_pages(a, b)
         move_to_page(a);
     else
     {
-        if(b == null)
-             b = page_active_last.attr("id");
+        if (b == null)
+            b = page_active_last.attr("id");
         move_to_page(b);
-    } 
+    }
 }
 
 function move_to_page(pageID)
@@ -398,4 +410,26 @@ customElements.define("rbfb-list-item", class extends HTMLElement
         var end = `</div>`;
         this.innerHTML = shape.replace("[ID]", this.id) + this.innerHTML + end;
     }
-});  
+});
+
+function promiseWhen(condition, timeout = 2000)
+{
+    return new Promise((resolve, reject) =>
+    {
+        setTimeout(() =>
+        {
+            reject();
+        }, timeout);
+
+        const loop = () =>
+        {
+            if (condition())
+            {
+                return resolve();
+            }
+            setTimeout(loop, 0);
+        };
+
+        setTimeout(loop, 0);
+    });
+}
