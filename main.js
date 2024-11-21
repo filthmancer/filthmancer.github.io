@@ -75,7 +75,7 @@ function init_data(json)
             {
                 puzzle = _json.find(p => p.id == moment().format(json.s.moment_format_epoch));
 
-                if (url_param("random"))
+                if (url_param("mode")=="random")
                 {
                     var index = irand(_json.length);
                     puzzle = _json[index];
