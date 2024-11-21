@@ -3,7 +3,7 @@
         "vars": {
             "--box-failed": "#D6D3A3",
             "--box-fake": "#000000",
-            "--box-text": "#fbfbd3",
+            "--color-box-text": "#fbfbd3",
             "--target-width": "310px"
         },
         "epoch": "20241118",

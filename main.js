@@ -104,6 +104,8 @@ function init_home()
 
         var baseColor = puzzle.color ?? today_backup[2];
         document.documentElement.style.setProperty('--color-day', baseColor);
+        document.documentElement.style.setProperty('--color-box', baseColor);
+        document.documentElement.style.setProperty('--color-box-text', "var(--color-black)");
 
         var num = moment.duration(today.diff(epoch())).asDays() + 1;
         num = num.toString().padStart(3, '0')
@@ -224,67 +226,16 @@ function updateQuestion()
             $("#topic").addClass("mini");
         }
         $("#question").text(questions[question_index][0]);
-        $("#box .box-overlay").hide();
         $("#question").attr("class", "box-text")
     }
     else
     {
         endGame();
     }
-
-}
-
-function updateList()
-{
-    for (let index = 0; index < questions.length; index++)
-    {
-        let e = questions[index];
-        let answered = answers.length > index;
-        let name = '#q' + index;
-
-        $(name).attr("class", "questions-grid " + (answered ? "shown" : "hidden"));
-        $(name + " #title h2").text(e[0]);
-        $(name + " #correct img").css("visibility", answered && answers[index] == e[1] ? "visible" : "hidden")
-        $(name + " #fake img").css("visibility", answered && !e[1] ? "visible" : "hidden")
-    }
-}
-function answerQuestion(answer)
-{
-    var isReal = question_state();
-    answers.push(answer);
-    question_index++;
-    var box = $("#box")
-    var c = "box box-answer-" + (isReal ? "real" : "fake");
-    box.attr("class", c)
-    if (!isReal)
-        $("#question").attr("class", "box-text box-answer-text")
-
-    $("#button-fake").addClass("disabled")
-    $("#button-real").addClass("disabled")
-    setTimeout(() =>
-    {
-        document.documentElement.style.setProperty('--overlay-sign', isReal ? -1 : 1);
-        $("#box .box-overlay").show();
-        $("#box .box-overlay").text(isReal ? "real" : "fake");
-        setTimeout(() =>
-        {
-            box.attr("class", c + "-exit")
-            setTimeout(() =>
-            {
-                box.attr("class", "box box-arrive");
-                $("#button-fake").removeClass("disabled")
-                $("#button-real").removeClass("disabled")
-
-                updateQuestion();
-                updateList();
-            }, 1000);
-        }, 1000);
-    }, 500);
 }
 
 function endGame()
 {
-    $("#box .box-overlay").hide();
     $("#question").attr("class", "box-text")
     $("#pretopic").text("nice work finding the real");
 
@@ -299,9 +250,107 @@ function endGame()
     });
     $("#question").text(correct + "/" + questions.length)
     set_button_state(false);
-
-
 }
+
+function updateList()
+{
+    for (let index = 0; index < questions.length; index++)
+    {
+        let e = questions[index];
+        let answered = answers.length > index;
+        let name = '#q' + index;
+
+        $(name).attr("class", "questions-grid " + (answered ? "shown" : "hidden"));
+        $(name + " .title h2").text(answered ? e[0] : "");
+        $(name + " .correct img").css("visibility", answered && answers[index] == e[1] ? "visible" : "hidden")
+        $(name + " .fake img").css("visibility", answered && !e[1] ? "visible" : "hidden")
+    }
+}
+function answerQuestion(answer)
+{
+    var isReal = question_state();
+    var isCorrect = answer == isReal;
+    answers.push(answer);
+    question_index++;
+
+    var box_col = "var(--color-day)";
+    var text_col = "var(--color-black)";
+    if (!isReal && isCorrect) 
+    {
+        box_col = "var(--color-black)";
+        text_col = "var(--color-cream)";
+    }
+    if (!isCorrect) box_col = "var(--color-grey)";
+
+    document.documentElement.style.setProperty('--color-box', box_col);
+    document.documentElement.style.setProperty('--color-box-text', text_col);
+    document.documentElement.style.setProperty('--overlay-sign', isReal ? 1 : -1);
+
+    var class_answer = "answer";//-" + (isReal ? "real" : "fake");
+    $("#box").addClass(class_answer);
+
+    if (!isReal)
+        $("#question").addClass("answer-text")
+
+    $("#button-fake").addClass("disabled")
+    $("#button-real").addClass("disabled")
+
+    long_timer = 1000;
+    short_timer = 800;
+
+    //Move box left/right based on answer
+    setTimeout(() =>
+    {
+        //Show overlay real/fake
+        $("#box #overlay-text").removeClass('hidden');
+        $("#box #overlay-text").text(isReal ? "real" : "fake");
+
+        icon = isCorrect ? "assets/tick_rough.svg" : "assets/x_rough.svg";
+        $("#box #overlay-icon").load(icon, () =>
+        {
+            var svg = $("#overlay-icon svg");
+            svg.css("fill", text_col);
+        });
+
+        setTimeout(() =>
+        {
+            //Show correct/incorrect
+            $("#box #overlay-icon").removeClass('hidden');
+
+            setTimeout(() =>
+            {
+                var exit = "exit" + (isCorrect ? "-correct" : "-incorrect");
+                //Exit box
+                $("#box").addClass(exit)
+
+                setTimeout(() =>
+                {
+                    $("#box").removeClass("answer");
+                    $("#box").removeClass(exit);
+                    //New question
+                    $("#box").addClass("intermediate");
+
+                    setTimeout(() =>
+                    {
+                        $("#box").removeClass("intermediate");
+                        $("#button-fake").removeClass("disabled")
+                        $("#button-real").removeClass("disabled")
+                        $("#box #overlay-text").addClass("hidden")
+                        $("#box #overlay-icon").addClass("hidden")
+                        $("#question").removeClass("answer-text")
+
+                        document.documentElement.style.setProperty('--color-box', "var(--color-day)");
+                        document.documentElement.style.setProperty('--color-box-text', "var(--color-black)");
+
+                        updateQuestion();
+                        updateList();
+                    }, 100);
+                }, long_timer);
+            }, long_timer);
+        }, long_timer);
+    }, short_timer);
+}
+
 function set_button_state(active)
 {
     if (active)
@@ -384,7 +433,6 @@ function shuffleArray(array)
 
 customElements.define("rbfb-button", class extends HTMLElement
 {
-
     connectedCallback()
     {
         var shape = `<svg [ID] width="100%" height="100% " stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
@@ -402,9 +450,9 @@ customElements.define("rbfb-list-item", class extends HTMLElement
 
     connectedCallback()
     {
-        var shape = `<div class="fake" id="fake"><img src="./assets/button_text_fake.svg"></div>
-					<div class="title hidden" id="title"><h2></h2></div>
-					<div id="correct"><img src="./assets/tick.svg">`;
+        var shape = `<div class="fake"><img src="./assets/button_text_fake.svg"></div>
+					<div class="title hidden"><h2></h2></div>
+					<div class="correct"><img src="./assets/tick.svg">`;
         var end = `</div>`;
         this.innerHTML = shape.replace("[ID]", this.id) + this.innerHTML + end;
     }

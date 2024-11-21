@@ -5,6 +5,7 @@
     --color-cream: #fff8e6;
     --color-grey: #D6D3A3;
     --color-day: #fff8e6;
+    --color-box:#fff8e6;
     --header-height: 26px;
     --table-min-height: 100;
     --anim-page-transition-time: .5s;
@@ -14,12 +15,11 @@
     --topic-width: 350px;
     --box-failed: #D6D3A3;
     --box-fake: #000000;
-    --box-text: #fbfbd3;
+    --color-box-text: #000000;
     --overlay-sign:1;
     --box-rotation:9deg;
     --box-translate:15%;
     --overlay-rotation: calc(var(--box-rotation) * var(--overlay-sign));
-    --overlay-offset-y: -150px;
     --overlay-offset-x: calc(var(--box-rotation) * var(--overlay-sign));
     --answer-anim-1-time: .5s;
     --answer-anim-2-time: 1s;

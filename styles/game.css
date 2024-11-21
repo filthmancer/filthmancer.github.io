@@ -1,5 +1,5 @@
 .box {
-    background-color: var(--color-day);
+    background-color: var(--color-box);
     border-radius: 4px;
     aspect-ratio: 1 / 1;
     margin: auto;
@@ -10,13 +10,12 @@
     display: block;
     z-index: 2;
     position: relative;
-    margin-left:50px;
-    margin-right:50px;
-}
+    margin-left: 50px;
+    margin-right: 50px;
 
-.box-text {
-    color: #000000;
-    padding: 10px;
+    transition: scale .25s;
+    scale:1 1;
+    transform-origin: bottom center;
 }
 
 .box-sub {
@@ -28,6 +27,12 @@
     justify-content: center;
 }
 
+.box-sub h1 {
+    color:var(--color-box-text);
+    padding: 10px;
+    transition: color .5s;
+}
+
 .box-overlay {
     font-family: 'Kiddo Regular';
     z-index: 1;
@@ -36,21 +41,40 @@
     text-align: center;
     align-self: center;
     position: relative;
-    top: var(--overlay-offset-y);
-    left: var(--overlay-offset-x);
-    -webkit-transform: translate(0, 0) rotate(var(--overlay-rotation));
-    /* Safari */
-    -moz-transform: translate(0, 0) rotate(var(--overlay-rotation));
-    /* Firefox */
-    -ms-transform: translate(0, 0) rotate(var(--overlay-rotation));
-    /* IE */
-    -o-transform: translate(0, 0) rotate(var(--overlay-rotation));
-    /* Opera */
-    transform: rotate(var(--overlay-rotation));
+
+    transition: opacity .25s;
+    opacity: 1;
 }
 
-.questions
-{
+#overlay-text {
+    top: -75%;
+    left: 0;
+    color:var(--color-box-text);
+    -webkit-transform: rotate(var(--overlay-rotation)) scale(1, 1);
+    /* Safari */
+    -moz-transform: rotate(var(--overlay-rotation)) scale(1, 1);
+    /* Firefox */
+    -ms-transform: rotate(var(--overlay-rotation)) scale(1, 1);
+    /* IE */
+    -o-transform: rotate(var(--overlay-rotation)) scale(1, 1);
+    /* Opera */
+    transform: rotate(var(--overlay-rotation)) scale(1, 1);
+}
+
+#overlay-icon {
+    top: -105%;
+    left: 70%;
+    width: 80px;
+    height: 80px;
+}
+
+.box-overlay.hidden {
+    opacity: 0;
+    transform: scale(1.5, 1.5);
+    transition: all 0s;
+}
+
+.questions {
     display: flex;
     flex-direction: column;
     width: var(--target-width);
@@ -60,20 +84,18 @@
 }
 
 
-rbfb-list-item .title
-{
-    width:245px;
+rbfb-list-item .title {
+    width: 245px;
 }
 
-rbfb-list-item #correct
-{
-    width:10px;
+rbfb-list-item .correct {
+    width: 29px;
     text-align: right;
     margin-left: auto;
 }
-rbfb-list-item .fake
-{
-    width:29px;
+
+rbfb-list-item .fake {
+    width: 29px;
     text-align: left;
     margin-right: auto;
 }
@@ -87,14 +109,12 @@ rbfb-list-item .fake
     padding-bottom: 30px;
 }
 
-.button-group rbfb-button
-{
+.button-group rbfb-button {
     margin-left: 13px;
     margin-right: 13px;
 }
 
-.topic-container
-{
+.topic-container {
     position: relative;
     display: flex;
     justify-content: center;
@@ -105,173 +125,67 @@ rbfb-list-item .fake
     margin-right: 30px;
 }
 
-#topic
-{
-    width:var(--topic-width);
+#topic {
+    width: var(--topic-width);
 }
 
-.shown #title, .shown #fake, .shown #correct {
+.shown .title,
+.shown .fake,
+.shown .correct {
+    transition: opacity 0.5s;
+    opacity: 1;
     animation: fadeInAnimation ease .25s;
     animation-iteration-count: 1;
     animation-fill-mode: both;
 }
 
-.hidden #title, .hidden #fake, .hidden #correct  {
+.hidden .title,
+.hidden .fake,
+.hidden .correct {
+    transition: opacity 0.5s;
+    opacity: 0;
     animation: fadeOutAnimation ease .25s;
     animation-iteration-count: 1;
     animation-fill-mode: both;
 }
 
-#correct
+.correct {
+    text-align: right;
+}
+
+.answer {
+    rotate: calc(var(--overlay-sign) * var(--box-rotation));
+    translate: calc(var(--overlay-sign) * var(--box-translate));
+
+    transition: rotate .5s,
+        translate .5s,
+        background-color .5s,
+        opacity .5s;
+}
+
+.exit-correct {
+    translate: calc(var(--overlay-sign) * 100%);
+    opacity: 0;
+}
+
+.exit-incorrect {
+    /* transform: translateY(100%); */
+    translate: calc(var(--overlay-sign) * var(--box-translate)) 100%;
+    opacity: 0;
+}
+
+#box.intermediate
 {
-   text-align: right;
+    transition: all 0s;
+    scale: 1 0;
 }
 
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+.arrive {
+    transition: scale 0.25s;
+    scale: 1 1;
 }
 
-@keyframes fadeOutAnimation {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
+.arrive #question
+{
+    transition: all 0s;
 }
-
-
-.box-answer-real {
-    animation: boxAnswerReal ease var(--answer-anim-1-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-.box-answer-fake {
-    animation: boxAnswerFake ease var(--answer-anim-1-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-
-.box-answer-text {
-    animation: boxAnswerText ease var(--answer-anim-1-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-
-.box-answer-real-exit {
-    animation: boxAnswerRealExit ease var(--answer-anim-1-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-.box-answer-fake-exit {
-    animation: boxAnswerFakeExit ease var(--answer-anim-1-time);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-
-@keyframes boxAnswerReal {
-    0% {
-        rotate: 0;
-        translate: 0px;
-    }
-
-    100% {
-        rotate: var(--box-rotation);
-        translate: var(--box-translate);
-        background-color: var(--box-failed);
-    }
-}
-
-@keyframes boxAnswerFake {
-    0% {
-        rotate: 0deg;
-        translate: 0px;
-    }
-
-    100% {
-        rotate: calc(-1 * var(--box-rotation));
-        translate: calc(-1 * var(--box-translate));
-        background-color: var(--box-fake);
-        color: var(--box-text);
-    }
-}
-
-@keyframes boxAnswerText {
-    0% {}
-
-    100% {
-        color: var(--box-text);
-    }
-}
-
-@keyframes boxAnswerRealExit {
-    0% {
-        rotate: var(--box-rotation);
-        translate: var(--box-translate);
-        background-color: var(--box-failed);
-        /* color:var(--box-text); */
-    }
-
-    100% {
-        rotate: var(--box-rotation);
-        translate: var(--box-translate) 100%;
-        background-color: var(--box-failed);
-        opacity: 0;
-        /* color:var(--box-text); */
-    }
-}
-
-
-@keyframes boxAnswerFakeExit {
-    0% {
-        rotate: calc(-1 * var(--box-rotation));
-        translate: calc(-1 * var(--box-translate));
-        background-color: var(--box-fake);
-        color: var(--box-text);
-    }
-
-    100% {
-        rotate: calc(-1 * var(--box-rotation));
-        translate: calc(-1 * var(--box-translate)) 100%;
-        background-color: var(--box-fake);
-        opacity: 0;
-        color: var(--box-text);
-    }
-}
-
-.box-arrive {
-    animation: boxArrive ease 0.2s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-
-@keyframes boxArrive {
-    0% {
-        transform: scale(1, 0);
-        transform-origin: bottom center;
-    }
-
-    100% {
-        transform: scale(1, 1);
-        transform-origin: bottom center;
-    }
-}
-
-
-.fake {
-    font-family: 'Kiddo Regular';
-}
-
