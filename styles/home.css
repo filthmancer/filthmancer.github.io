@@ -19,3 +19,8 @@
     width:var(--target-width);
     margin: auto;
 }
+
+#button-about
+{
+    cursor: pointer;
+}
