@@ -115,10 +115,15 @@ h5 {
     transition: background-color var(--anim-page-transition-time);
 }
 
+.header.hidden h2 {
+    opacity: 0;
+}
+
 .header #header-index
 {
     margin:auto;
     width:var(--target-width);
+    transition: opacity var(--anim-page-transition-time);
 }
 
 .header #button-about

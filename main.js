@@ -128,6 +128,7 @@ function init_home()
         waitFor(_ => logo_loaded == true)
             .then(() =>
             {
+                $(".header").toggleClass("hidden");
                 move_to_page("home")
             });
     }
