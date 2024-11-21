@@ -74,7 +74,8 @@ function init_data(json)
             .then((_json) => 
             {
                 puzzle = _json.find(p => p.id == moment().format(json.s.moment_format_epoch));
-                if (puzzle == null)
+
+                if (url_param("random"))
                 {
                     var index = irand(_json.length);
                     puzzle = _json[index];
@@ -163,8 +164,6 @@ function move_to_page(pageID)
     page_active = $("#" + pageID);
 
     page_active.toggleClass("hidden shown");
-
-    var color = json.s[pageID].bg ?? "color-cream";
 
     Object.keys(json.s[pageID]).forEach(css =>
     {
@@ -425,4 +424,18 @@ function waitFor(condition, timeout = 2000)
 
         setTimeout(loop, 0);
     });
+}
+
+function url_param(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
 }
