@@ -149,36 +149,3 @@ rbfb-list-item {
     border-bottom: 1.5px solid;
     border-radius: .5px;
 }
-
-rbfb-list-item.shown {
-    animation: trFadeIn ease .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-rbfb-list-item.hidden {
-    animation: trFadeOut ease .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-
-
-@keyframes trFadeIn {
-    0% {
-        border-color: var(--color-grey);
-    }
-
-    100% {
-        border-color: var(--color-base);
-    }
-}
-
-@keyframes trFadeOut {
-    0% {
-        border-color: var(--color-base);
-    }
-
-    100% {
-        border-color: var(--color-grey);
-    }
-}

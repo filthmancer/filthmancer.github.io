@@ -100,6 +100,15 @@ rbfb-list-item .fake {
     margin-right: auto;
 }
 
+rbfb-list-item.shown {
+    transition: border-color .25s;
+    border-color: var(--color-day);
+}
+
+rbfb-list-item.hidden {
+    transition: border-color .25s;
+    border-color: var(--color-grey);
+}
 
 .button-group {
     display: flex;

@@ -60,7 +60,6 @@ function init_data(json)
     $("#button-play").click(() => move_to_page("game"));
     $("#button-real").click(() => answerQuestion(true));
     $("#button-fake").click(() => answerQuestion(false));
-    $("#button-new-puzzle").click(() => getnewpuzzle());
     $("#button-share").click(() => share());
 
     var today = moment();
@@ -260,7 +259,7 @@ function updateList()
         let answered = answers.length > index;
         let name = '#q' + index;
 
-        $(name).attr("class", "questions-grid " + (answered ? "shown" : "hidden"));
+        $(name).attr("class", (answered ? "shown" : "hidden"));
         $(name + " .title h2").text(answered ? e[0] : "");
         $(name + " .correct img").css("visibility", answered && answers[index] == e[1] ? "visible" : "hidden")
         $(name + " .fake img").css("visibility", answered && !e[1] ? "visible" : "hidden")
@@ -355,14 +354,12 @@ function set_button_state(active)
 {
     if (active)
     {
-        $("#button-new-puzzle").addClass("hidden")
         $("#button-share").addClass("hidden")
         $("#button-fake").removeClass("hidden")
         $("#button-real").removeClass("hidden")
     }
     else
     {
-        // $("#button-new-puzzle").removeClass("hidden")
         $("#button-share").removeClass("hidden")
         $("#button-fake").addClass("hidden")
         $("#button-real").addClass("hidden")
@@ -374,8 +371,7 @@ function init_about()
 {
     var gridchild = `<div class="about-grid-item" id="about-grid-item-{0}"><h2>{1} — {2}</h2></div>`;
     var i = 0;
-    // for(var i = 0; i < Object.keys(backup).length; i++)
-    // {
+
     json.s.days.forEach(b =>
     {
         var id = "#about-grid-item-{0}".format(i);
