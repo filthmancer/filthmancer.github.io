@@ -1,22 +1,5 @@
-var json_add = 'https://filthmancer.github.io/puzzles.json';
-var backup;
+var j_m = './m.json';
 var json;
-var settings;
-
-var strings =
-{
-    footer_text_format: "Edited by {0},<br>{1}.",
-    moment_format: "ddd DD MMM",
-    header_text_format: "#{0} — {1} — {2}",
-    category_anim_format: "https://filthmancer.github.io/assets/anims/{0}.svg",
-    blurb: "are these real",
-}
-
-var bg_settings = {
-    "home": "--color-base",
-    "game": "--color-cream",
-    "about": "--color-cream"
-};
 
 var pageCallback =
 {
@@ -47,7 +30,7 @@ jQuery(document).ready(function ()
     defer(init)
     function init()
     {
-        fetch(json_add, { cache: "reload" })
+        fetch(j_m, { cache: "reload" })
             .then((response) => response.json())
             .then((_json) => 
             {
@@ -60,12 +43,18 @@ jQuery(document).ready(function ()
 
 function init_data(json)
 {
+    Object.keys(json.s.vars).forEach(v => 
+    {
+        old = getComputedStyle(document.body).getPropertyValue(v)
+        if(old != json.s.vars[v])
+        {
+            console.log("updating", v, json.s.vars[v], document.documentElement.style.getPropertyValue(v))
+            document.documentElement.style.setProperty(v, json.s.vars[v]);
+        }
+        
+    });
     puzzles = json.puzzles;
-
-    backup = json.backup;
-    settings = json.settings;
-
-    puzzle_today = puzzles.find(p => p.id == moment().format(strings.moment_format));
+    puzzle_today = puzzles.find(p => p.id == moment().format(json.s.moment_format));
     if (puzzle_today == null)
     {
         var index = irand(puzzles.length);
@@ -75,65 +64,48 @@ function init_data(json)
     if (puzzle_override)
         puzzle_today = puzzles.find(p => p.id == puzzle_override);
 
-    $("#button-play").bind('click', e =>
-    {
-        move_to_page("game");
-    });
-
-    $("#button-real").click(function ()
-    {
-        answerQuestion(true)
-    });
-    $("#button-fake").click(function ()
-    {
-        answerQuestion(false)
-    });
-    $("#button-new-puzzle").click(() =>
-    {
-        getnewpuzzle();
-    });
-    $("#button-share").click(() =>
-    {
-        share();
-    });
+    $("#button-play").click(() => move_to_page("game"));
+    $("#button-real").click(() => answerQuestion(true));
+    $("#button-fake").click(() => answerQuestion(false));
+    $("#button-new-puzzle").click(() => getnewpuzzle());
+    $("#button-share").click(() => share());
 }
 
 function init_home()
 {
     if (puzzle_today)
     {
+        var l = json.l.home;
         var today = moment(puzzle_today.id);
-        var today_backup = backup[today.day()];
+        var today_backup = json.s.days[today.day()];
 
         var baseColor = puzzle_today.color ?? today_backup[2];
-        document.documentElement.style.setProperty('--color-base', baseColor);
-
-        var epoch = moment(settings.epoch);
+        document.documentElement.style.setProperty('--color-day', baseColor);
+        var epoch = moment(json.s.epoch);
         var num = moment.duration(today.diff(epoch)).asDays() + 1;
         num = num.toString().padStart(3, '0')
         var category = (puzzle_today.category ?? today_backup[1]);
-        var text = strings.header_text_format.format(num,
-            today.format(strings.moment_format),
+        var text = l.header_text_format.format(num,
+            today.format(json.s.moment_format),
             category
         );
         $("#header-index").text(text.toUpperCase());
 
         var link = puzzle_today.editor.link(puzzle_today.editor_link);
-        text = strings.footer_text_format.format(link, puzzle_today.editor_blurb);
+        text = l.footer_text_format.format(link, puzzle_today.editor_blurb);
         $("#footer-text").html(text);
 
         logo_loaded = false;
-        fetch(strings.category_anim_format.format(category.toLowerCase()))
+        fetch(l.category_anim_format.format(category.toLowerCase()))
             .then(img => 
             {
                 logo_loaded = true;
                 if (img.ok)
-                    $(".anim").attr("data", strings.category_anim_format.format(category.toLowerCase()));
+                    $(".anim").attr("data", json.l.category_anim_format.format(category.toLowerCase()));
             })
             .catch((error) =>
             {
                 logo_loaded = true;
-                console.log("logo loaded - catch")
             });
 
 
@@ -175,10 +147,14 @@ function move_to_page(pageID)
 
     page_active.toggleClass("hidden shown");
 
-    var color = bg_settings[pageID] ?? "color-cream";
-    $("body").css("background-color", "var(" + color + ")");
-    $("header").css("background-color", "var(" + color + ")");
+    var color = json.s[pageID].bg ?? "color-cream";
 
+    Object.keys(json.s[pageID]).forEach(css =>
+    {
+        $("body").css(css, json.s[pageID][css]);
+        $("header").css(css, json.s[pageID][css]);
+    })
+    
     if (pageCallback[pageID])
         pageCallback[pageID]();
 
@@ -203,7 +179,7 @@ function getnewpuzzle()
     question_index = 0;
 
     answers = [];
-    $("#pretopic").text(strings.blurb);
+    $("#pretopic").text(json.l.game.blurb);
     set_button_state(true);
     updateQuestion();
     updateList();
@@ -329,7 +305,7 @@ function init_about()
     var i = 0;
     // for(var i = 0; i < Object.keys(backup).length; i++)
     // {
-    backup.forEach(b =>
+    json.s.days.forEach(b =>
     {
         var id = "#about-grid-item-{0}".format(i);
         var format = $(id);

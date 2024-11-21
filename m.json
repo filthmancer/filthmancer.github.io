@@ -1,22 +1,68 @@
 {
     "s": {
-        "box-failed": "#D6D3A3",
-        "box-fake": "#000000",
-        "box-text": "#fbfbd3",
-        "fullwidth": "100%",
-        "width-target": "500px",
-        "overlay-rotation": "25deg",
-        "overlay-offset-y": "-250px",
-        "overlay-offset-x": "50px",
-        "answer-anim-1-time": ".5s",
-        "answer-anim-2-time": "1s",
-        "epoch": "20241118"
+        "vars": {
+            "--box-failed": "#D6D3A3",
+            "--box-fake": "#000000",
+            "--box-text": "#fbfbd3",
+            "--target-width": "310px"
+        },
+        "epoch": "20241118",
+        "moment_format": "ddd DD MMM",
+        "days": [
+            [
+                "Mon",
+                "World",
+                "#FF6921"
+            ],
+            [
+                "Tue",
+                "People",
+                "#E08732"
+            ],
+            [
+                "Wed",
+                "Food",
+                "#F9D225"
+            ],
+            [
+                "Thu",
+                "Nature",
+                "#88A74A"
+            ],
+            [
+                "Fri",
+                "Things",
+                "#A0B3DD"
+            ],
+            [
+                "Sat",
+                "Arts",
+                "#E292E7"
+            ],
+            [
+                "Sun",
+                "Leisure",
+                "#FE9F9F"
+            ],
+            [
+                "?",
+                "Special",
+                "#C8F317"
+            ]
+        ],
+        "home": {
+            "background-color": "var(--color-day)"
+        },
+        "game": {
+            "background-color": "var(--color-cream)"
+        },
+        "about": {
+            "background-color": "var(--color-cream)"
+        }
     },
-    "l":
-    {
+    "l": {
         "home": {
             "footer_text_format": "Edited by {0},<br>{1}.",
-            "moment_format": "ddd DD MMM",
             "header_text_format": "#{0} — {1} — {2}",
             "category_anim_format": "assets/anims/{0}.svg"
         },
@@ -25,49 +71,6 @@
         },
         "about": {}
     },
-
-    "backup": [
-        [
-            "Mon",
-            "World",
-            "#FF6921"
-        ],
-        [
-            "Tue",
-            "People",
-            "#E08732"
-        ],
-        [
-            "Wed",
-            "Food",
-            "#F9D225"
-        ],
-        [
-            "Thu",
-            "Nature",
-            "#88A74A"
-        ],
-        [
-            "Fri",
-            "Things",
-            "#A0B3DD"
-        ],
-        [
-            "Sat",
-            "Arts",
-            "#E292E7"
-        ],
-        [
-            "Sun",
-            "Leisure",
-            "#FE9F9F"
-        ],
-        [
-            "?",
-            "Special",
-            "#C8F317"
-        ]
-    ],
     "puzzles": [
         {
             "id": "20241118",
