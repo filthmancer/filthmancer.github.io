@@ -12,7 +12,7 @@ var questions;
 var question_index = 0;
 var question_state = () => questions[question_index][1];
 var answers = []
-function epoch() {return moment(json.s.epoch);}
+function epoch() { return moment(json.s.epoch); }
 
 var puzzle_override;
 var page_active, page_active_last;
@@ -37,10 +37,10 @@ jQuery(document).ready(function ()
                 json = _json;
                 init_data(json);
                 waitFor(_ => puzzle != null)
-                .then(() =>
-                {
-                    init_home();
-                });
+                    .then(() =>
+                    {
+                        init_home();
+                    });
             });
     }
 });
@@ -50,7 +50,7 @@ function init_data(json)
     Object.keys(json.s.vars).forEach(v => 
     {
         old = getComputedStyle(document.body).getPropertyValue(v)
-        if(old != json.s.vars[v])
+        if (old != json.s.vars[v])
         {
             console.log("updating", v, json.s.vars[v], document.documentElement.style.getPropertyValue(v))
             document.documentElement.style.setProperty(v, json.s.vars[v]);
@@ -67,23 +67,29 @@ function init_data(json)
     json.p.forEach(pi =>
     {
         var index = moment(pi[0], json.s.moment_format_epoch);
-        if(index.isAfter(today))
+        if (index.isAfter(today))
         {
             fetch(pi[1], { cache: "reload" })
-            .then((response) => response.json())
-            .then((_json) => 
-            {
-                puzzle = _json.find(p => p.id == moment().format(json.s.moment_format_epoch));
-
-                if (url_param("mode")=="random")
+                .then((response) => response.json())
+                .then((_json) => 
                 {
-                    var index = irand(_json.length);
-                    puzzle = _json[index];
-                }
-            
-                if (puzzle_override)
-                    puzzle = _json.find(p => p.id == puzzle_override);
-            });
+                    puzzle = _json.find(p => p.id == moment().format(json.s.moment_format_epoch));
+
+                    var target = url_param("target");
+                    if (target != null)
+                    {
+                        if (target == "random")
+                        {
+                            var index = irand(_json.length);
+                            puzzle = _json[index];
+                        }
+                        else
+                        {
+                            _override = _json.find(p => p.id == target);
+                            if (_override != null) puzzle = _override;
+                        }
+                    }
+                });
         }
     });
 }
@@ -98,7 +104,7 @@ function init_home()
 
         var baseColor = puzzle.color ?? today_backup[2];
         document.documentElement.style.setProperty('--color-day', baseColor);
-        
+
         var num = moment.duration(today.diff(epoch())).asDays() + 1;
         num = num.toString().padStart(3, '0')
         var category = (puzzle.category ?? today_backup[1]);
@@ -170,7 +176,7 @@ function move_to_page(pageID)
         $("body").css(css, json.s[pageID][css]);
         $("header").css(css, json.s[pageID][css]);
     })
-    
+
     if (pageCallback[pageID])
         pageCallback[pageID]();
 
