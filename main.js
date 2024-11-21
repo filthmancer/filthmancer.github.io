@@ -7,12 +7,12 @@ var pageCallback =
     "about": init_about,
 }
 
-var puzzles;
-var puzzle_today;
+var puzzle;
 var questions;
 var question_index = 0;
 var question_state = () => questions[question_index][1];
 var answers = []
+function epoch() {return moment(json.s.epoch);}
 
 var puzzle_override;
 var page_active, page_active_last;
@@ -36,7 +36,11 @@ jQuery(document).ready(function ()
             {
                 json = _json;
                 init_data(json);
-                init_home();
+                waitFor(_ => puzzle != null)
+                .then(() =>
+                {
+                    init_home();
+                });
             });
     }
 });
@@ -51,48 +55,60 @@ function init_data(json)
             console.log("updating", v, json.s.vars[v], document.documentElement.style.getPropertyValue(v))
             document.documentElement.style.setProperty(v, json.s.vars[v]);
         }
-        
     });
-    puzzles = json.puzzles;
-    puzzle_today = puzzles.find(p => p.id == moment().format(json.s.moment_format));
-    if (puzzle_today == null)
-    {
-        var index = irand(puzzles.length);
-        puzzle_today = puzzles[index];
-    }
-
-    if (puzzle_override)
-        puzzle_today = puzzles.find(p => p.id == puzzle_override);
 
     $("#button-play").click(() => move_to_page("game"));
     $("#button-real").click(() => answerQuestion(true));
     $("#button-fake").click(() => answerQuestion(false));
     $("#button-new-puzzle").click(() => getnewpuzzle());
     $("#button-share").click(() => share());
+
+    var today = moment();
+    json.p.forEach(pi =>
+    {
+        var index = moment(pi[0], json.s.moment_format_epoch);
+        if(index.isAfter(today))
+        {
+            fetch(pi[1], { cache: "reload" })
+            .then((response) => response.json())
+            .then((_json) => 
+            {
+                puzzle = _json.find(p => p.id == moment().format(json.s.moment_format_epoch));
+                if (puzzle == null)
+                {
+                    var index = irand(_json.length);
+                    puzzle = _json[index];
+                }
+            
+                if (puzzle_override)
+                    puzzle = _json.find(p => p.id == puzzle_override);
+            });
+        }
+    });
 }
 
 function init_home()
 {
-    if (puzzle_today)
+    if (puzzle)
     {
         var l = json.l.home;
-        var today = moment(puzzle_today.id);
+        var today = moment(puzzle.id);
         var today_backup = json.s.days[today.day()];
 
-        var baseColor = puzzle_today.color ?? today_backup[2];
+        var baseColor = puzzle.color ?? today_backup[2];
         document.documentElement.style.setProperty('--color-day', baseColor);
-        var epoch = moment(json.s.epoch);
-        var num = moment.duration(today.diff(epoch)).asDays() + 1;
+        
+        var num = moment.duration(today.diff(epoch())).asDays() + 1;
         num = num.toString().padStart(3, '0')
-        var category = (puzzle_today.category ?? today_backup[1]);
+        var category = (puzzle.category ?? today_backup[1]);
         var text = l.header_text_format.format(num,
-            today.format(json.s.moment_format),
+            today.format(json.s.moment_format_front),
             category
         );
         $("#header-index").text(text.toUpperCase());
 
-        var link = puzzle_today.editor.link(puzzle_today.editor_link);
-        text = l.footer_text_format.format(link, puzzle_today.editor_blurb);
+        var link = puzzle.editor.link(puzzle.editor_link);
+        text = l.footer_text_format.format(link, puzzle.editor_blurb);
         $("#footer-text").html(text);
 
         logo_loaded = false;
@@ -109,7 +125,7 @@ function init_home()
             });
 
 
-        promiseWhen(_ => logo_loaded == true)
+        waitFor(_ => logo_loaded == true)
             .then(() =>
             {
                 move_to_page("home")
@@ -174,7 +190,7 @@ function init_game()
 
 function getnewpuzzle()
 {
-    questions = puzzle_today.questions;
+    questions = puzzle.questions;
     shuffleArray(questions);
     question_index = 0;
 
@@ -195,8 +211,8 @@ function updateQuestion()
 {
     if (question_index < questions.length)
     {
-        $("#topic").text(puzzle_today.topic + "?");
-        var count = puzzle_today.topic.length;
+        $("#topic").text(puzzle.topic + "?");
+        var count = puzzle.topic.length;
         if (count > 20)
         {
             $("#topic").addClass("mini");
@@ -267,7 +283,7 @@ function endGame()
     $("#pretopic").text("nice work finding the real");
 
 
-    $("#topic-container #topic").text(puzzle_today.topic);
+    $("#topic-container #topic").text(puzzle.topic);
 
     var correct = 0;
     answers.forEach((a, index) =>
@@ -388,7 +404,7 @@ customElements.define("rbfb-list-item", class extends HTMLElement
     }
 });
 
-function promiseWhen(condition, timeout = 2000)
+function waitFor(condition, timeout = 2000)
 {
     return new Promise((resolve, reject) =>
     {
