@@ -119,13 +119,22 @@ function init_home()
         text = l.footer_text_format.format(link, puzzle.editor_blurb);
         $("#footer-text").html(text);
 
+        $(".anim#animloaded").hide();
         logo_loaded = false;
-        fetch(l.category_anim_format.format(category.toLowerCase()))
+        anim_target = l.category_anim_format.format(category.toLowerCase());
+        anim_fallback = "assets/anims/fallback.svg";
+        fetch(anim_target)
             .then(img => 
             {
                 logo_loaded = true;
                 if (img.ok)
-                    $(".anim").attr("data", json.l.category_anim_format.format(category.toLowerCase()));
+                {
+                    $(".anim#animloaded").load(anim_target);
+                    $(".anim#animfallback").hide();
+                    $(".anim#animloaded").show();
+                    //  $(".anim").attr("data", json.l.category_anim_format.format(category.toLowerCase()));
+                }
+                   
             })
             .catch((error) =>
             {
