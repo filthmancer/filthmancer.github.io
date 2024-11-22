@@ -31,7 +31,7 @@ jobs:
           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
           commands: | # list of commands, specified as a valid JSON string
             [
-              { "command": "addWorksheet", "args": { "worksheetTitle": "JsonTest" }},
+              { "command": "getWorksheet", "args": { "worksheetTitle": "JsonTest" }},
               { "command": "getData", "args": { "range": "'JsonTest!B1:D4" } }
             ]
         env:
