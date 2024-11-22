@@ -57,6 +57,7 @@ function init_data(json)
         }
     });
 
+
     $("#button-play").click(() => move_to_page("game"));
     $("#button-real").click(() => answerQuestion(true));
     $("#button-fake").click(() => answerQuestion(false));
@@ -99,7 +100,7 @@ function init_home()
     {
         var l = json.l.home;
         var today = moment(puzzle.id);
-        var today_backup = json.s.days[today.day()];
+        var today_backup = json.s.days[today.day()-1];
 
         var baseColor = puzzle.color ?? today_backup[2];
         document.documentElement.style.setProperty('--color-day', baseColor);

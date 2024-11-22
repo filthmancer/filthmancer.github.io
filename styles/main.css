@@ -135,10 +135,22 @@ h5 {
 
     width:50px;
     height: 100%;
-    background-image: none;
     fill: none;
    
+    background-image: none;
     border: 1.5px solid var(--color-black);
+    cursor: pointer;
+}
+
+
+.header #button-about img
+{
+    content: url(../assets/about.svg);
+}
+
+.header #button-about:hover img
+{
+    content: url(../assets/about_hover.svg);
 }
 .header #button-about h2
 {
