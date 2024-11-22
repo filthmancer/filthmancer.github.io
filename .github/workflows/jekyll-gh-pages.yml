@@ -32,7 +32,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "JsonTest" }},
-              { "command": "getData", "args": { "range": "'JsonTest!B1:D4" } }
+              { "command": "getData", "args": { "range": "!B1:D4" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
