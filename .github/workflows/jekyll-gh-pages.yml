@@ -39,7 +39,7 @@ jobs:
       - name: dump spreadsheet
         env:
           #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
-          RESULTS: ${{ steps.get_spreadsheet.outputs.results }}
+          RESULTS: ${{ steps.get_spreadsheet.outputs.results[0] }}
         run: echo "$RESULTS" | jq
       - id: 'get_worksheet'
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
@@ -48,7 +48,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "202411" }},
-              { "command": "getData", "args": { "range": "'202411'!B1:D4" } }
+              { "command": "getData", "args": { "range": "!B1:D4" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
