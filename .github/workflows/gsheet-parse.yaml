@@ -41,7 +41,7 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
           RESULTS: ${{steps.get_spreadsheet.outputs.results}}
         run: |
-          echo "$RESULTS | jq .results[0].result.sheets"
+          echo "{{$RESULTS | jq .results[0].result.sheets}}"
           echo "SHEETS=$RESULTS | jq .results[0].result.sheets" >> $GITHUB_ENV
           echo "$SHEETS"
       - id: 'get_worksheet'
