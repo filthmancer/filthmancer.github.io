@@ -97,7 +97,6 @@ jobs:
         uses: actions/github-script@v6
         id: get_sheets
         with:
-            result-encoding: string
             script: |
                 try {
                     const fs = require('fs')
@@ -108,7 +107,7 @@ jobs:
                     core.error("Error while reading or parsing the JSON")
                     core.setFailed(err)
                 }
-                var sheets = apps.results[0]
+                var sheets = apps.results[1].result
                 return JSON.stringify(sheets);
       - name: "Test output"
         run: echo "${{steps.get_sheets.outputs.result}}"
