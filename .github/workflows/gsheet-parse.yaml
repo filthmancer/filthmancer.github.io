@@ -87,7 +87,7 @@ jobs:
           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
           commands: | # list of commands, specified as a valid JSON string
             [
-              { "command": "getSpreadsheet", "args": { }}
+              { "command": "getSpreadsheet", "args": { }},
               { "command": "getWorksheet", "args": { "worksheetTitle": "202412" }},
               { "command": "getData", "args": { "range": "!B1:D4" } }
             ]
