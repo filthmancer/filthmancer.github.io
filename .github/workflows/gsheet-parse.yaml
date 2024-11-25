@@ -38,7 +38,7 @@ jobs:
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
       - id: 'get_sheetIds'
         run: |
-            sheets= ${{ fromJSON(steps.get_spreadsheet.outputs.results).results[0].result.sheets }}
+            sheets= ${{ fromJSON(steps.get_spreadsheet.outputs.results) }}.results[0].result.sheets
             for s in $sheets
             do
                 echo $s
