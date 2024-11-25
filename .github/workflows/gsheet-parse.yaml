@@ -24,8 +24,6 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    outputs:
-        matrix: ${{fromJson(steps.get_sheetIds.outputs.SHEETS)}}
     steps:
       - id: 'get_spreadsheet'
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
@@ -43,7 +41,7 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
         #   RESULTS: ${{ fromJSON(steps.get_spreadsheet.outputs.results)}}
         run: |
-            echo "${{ fromJSON(steps.get_spreadsheet.outputs.results) }}"
+            echo "${{ fromJSON(steps.get_spreadsheet.outputs.results).results[0] }}"
             
   spreadsheets:
     runs-on: ubuntu-latest
