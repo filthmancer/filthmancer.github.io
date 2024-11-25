@@ -84,8 +84,7 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_worksheet_data.outputs.results }}
           RESULTS: ${{ steps.get_worksheet_data.outputs.results }}
         run: |
-            result= `${{steps.get_worksheet_data.outputs.results}}`
-            echo $result | tr -d "'"
+            echo $RESULTS | tr -d "'"
       - name: "Read Sheet Results"
         uses: actions/github-script@v6
         id: get_sheets
@@ -94,7 +93,7 @@ jobs:
             script: |
                 try {
                     const fs = require('fs')
-                    const jsonString = '${{steps.parse_data.outputs.results}}'
+                    const jsonString = `${{steps.parse_data.outputs.results}}`
                     jsonString = jsonString.replaceAll("'", " ");
                     var apps = JSON.parse(jsonString)
                    
