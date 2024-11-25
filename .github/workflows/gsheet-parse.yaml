@@ -37,11 +37,12 @@ jobs:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
       - id: 'get_sheetIds'
-        # env:
+        env:
           #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
-        #   RESULTS: ${{ fromJSON(steps.get_spreadsheet.outputs.results)}}
+          RESULTS: ${{ fromJSON(steps.get_spreadsheet.outputs.results).results[0].result.sheets }}
         run: |
-            echo "${{ fromJSON(steps.get_spreadsheet.outputs.results).results[0] }}"
+            echo "${{ fromJSON(steps.get_spreadsheet.outputs.results).results[0].result.sheets }}"
+            echo $RESULTS
             
   spreadsheets:
     runs-on: ubuntu-latest
