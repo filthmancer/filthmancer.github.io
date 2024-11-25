@@ -36,7 +36,7 @@ jobs:
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
-      - run: echo "PACKAGE_JSON=$(jq -c . < ${{steps.get_spreadsheet.outputs.results}})" >> $GITHUB_ENV
+      - run: echo "PACKAGE_JSON=$(jq -c . < ${{steps.get_spreadsheet.outputs.results}})" >> "$GITHUB_ENV"
       - run: echo '${{ fromJson(env.PACKAGE_JSON) }}'
     #   - uses: actions/github-script@v7
     #     id: set-result
