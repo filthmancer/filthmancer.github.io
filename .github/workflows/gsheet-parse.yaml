@@ -45,9 +45,7 @@ jobs:
         run: |
             SHEETS="$(echo '${{ steps.get_spreadsheet.outputs.results }}' | jq -c '.results[0].result.sheets')";
             echo "$SHEETS";
-            echo "SHEETS<<EOF" >> "$GITHUB_OUTPUT";
-            echo "$SHEETS" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "SHEETS=$SHEETS" >> "$GITHUB_OUTPUT"
   spreadsheets:
     runs-on: ubuntu-latest
     needs: fetch
