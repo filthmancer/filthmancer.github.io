@@ -37,7 +37,7 @@ jobs:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
       - run: |
-            echo 'jq -c .results[0].results.sheets < "${{steps.get_spreadsheet.outputs.results}}"'
+            echo "$(jq -c .results[0].results.sheets < ${{steps.get_spreadsheet.outputs.results}})"
             echo "PACKAGE_JSON=$(jq -c . < ${{steps.get_spreadsheet.outputs.results}} )" >> "$GITHUB_ENV"
       - run: |
             echo "${{ env.PACKAGE_JSON }}"
@@ -49,7 +49,7 @@ jobs:
             script: |
                 try {
                     const fs = require('fs')
-                    const jsonString = "${{steps.get_spreadsheet.outputs.results}}"
+                    const jsonString = '${{steps.get_spreadsheet.outputs.results}}'
                     var apps = JSON.parse(jsonString)
                     console.log(apps)
                     console.log(apps.results[0].result.sheets)
