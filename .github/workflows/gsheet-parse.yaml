@@ -40,12 +40,11 @@ jobs:
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
       - id: 'get_sheetIds'
         # env:
-        #   #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
+          #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
         #   RESULTS: ${{ fromJSON(steps.get_spreadsheet.outputs.results)}}
         run: |
-            SHEETS="$(echo '${{ steps.get_spreadsheet.outputs.results }}' | jq -c '.results[0].result.sheets')";
-            echo "$SHEETS";
-            echo "SHEETS=$SHEETS" >> "$GITHUB_OUTPUT"
+            echo '${{ fromJSON(steps.get_spreadsheet.outputs.results)}}'
+            
   spreadsheets:
     runs-on: ubuntu-latest
     needs: fetch
