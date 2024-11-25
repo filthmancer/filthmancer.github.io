@@ -76,7 +76,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "rbfb202411" }},
-              { "command": "getData", "args": { "range": "rbfb202411!A1:D10" } }
+              { "command": "getData", "args": { "range": "rbfb202411!B1:C1" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
