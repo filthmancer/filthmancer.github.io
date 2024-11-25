@@ -43,7 +43,7 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
         #   RESULTS: ${{ fromJSON(steps.get_spreadsheet.outputs.results)}}
         run: |
-            echo '${{ fromJSON(steps.get_spreadsheet.outputs.results)}}'
+            echo "${{ fromJSON(steps.get_spreadsheet.outputs.results) }}"
             
   spreadsheets:
     runs-on: ubuntu-latest
