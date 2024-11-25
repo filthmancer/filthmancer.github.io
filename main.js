@@ -1,3 +1,9 @@
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-F1JWQ6QR3W');
+
 var j_m = './m.json';
 var json;
 
@@ -99,6 +105,10 @@ function init_home()
 {
     if (puzzle)
     {
+        gtag('event', 'puzzle_targeted',{
+            'id':puzzle.id
+        });
+        
         var l = json.l.home;
         var today = moment(puzzle.id);
         var today_backup = json.s.days[today.day()-1];
