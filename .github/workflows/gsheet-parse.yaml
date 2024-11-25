@@ -83,7 +83,7 @@ jobs:
         env:
           #  the output of the action can be found in ${{ steps.get_worksheet_data.outputs.results }}
           RESULTS: ${{ steps.get_worksheet_data.outputs.results }}
-        run: echo "${{steps.get_worksheet_data.outputs.results}}" | tr ' _ >> "$GITHUB_OUTPUT"
+        run: echo "results=${{steps.get_worksheet_data.outputs.results}}" | tr ' _ >> "$GITHUB_OUTPUT"
       - name: "Read Sheet Results"
         uses: actions/github-script@v6
         id: get_sheets
