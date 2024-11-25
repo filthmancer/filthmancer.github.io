@@ -28,6 +28,7 @@ jobs:
         sheetIds: ${{steps.get_sheets.outputs.result}}
     steps:
       - id: 'get_spreadsheet'
+        name: "Get Spreadsheet"
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
         with:
           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
@@ -68,13 +69,14 @@ jobs:
     # needs: fetch
     steps:
       - id: 'get_worksheet_data'
+        name: "Get worksheet data"
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
         with:
           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "rbfb202411" }},
-              { "command": "getData", "args": { "range": "rbfb202411!A2:B3" } }
+              { "command": "getData", "args": { "range": "rbfb202411!A1:D10" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
@@ -108,4 +110,5 @@ jobs:
                 }
                 var sheets = apps.results[0]
                 return JSON.stringify(sheets);
-      - run: echo "${{steps.get_sheets.outputs.result}}"
+      - name: "Test output"
+        run: echo "${{steps.get_sheets.outputs.result}}"
