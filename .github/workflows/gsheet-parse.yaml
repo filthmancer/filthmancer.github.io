@@ -84,7 +84,11 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_worksheet_data.outputs.results }}
           RESULTS: ${{ steps.get_worksheet_data.outputs.results }}
         run: |
-            n=$(echo ${{ steps.get_worksheet_data.outputs.results }} | tr -d \')
+            JSON=$(cat - <<EOJSON
+            ${{steps.get_worksheet_data.outputs.results}}
+            EOJSON
+            )
+            n=$(echo $JSON | tr -d \')
             echo $n
       - name: "Read Sheet Results"
         uses: actions/github-script@v6
