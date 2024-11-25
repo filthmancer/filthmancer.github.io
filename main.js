@@ -16,6 +16,7 @@ function epoch() { return moment(json.s.epoch); }
 
 var puzzle_override;
 var page_active, page_active_last;
+var game_initialized;
 
 jQuery(document).ready(function ()
 {
@@ -201,14 +202,10 @@ function move_to_last_page()
 
 function init_game()
 {
-    getnewpuzzle();
-}
-
-
-function getnewpuzzle()
-{
+    if(game_initialized)
+        return;
+    game_initialized = true;
     questions = puzzle.questions;
-    shuffleArray(questions);
     question_index = 0;
 
     answers = [];
@@ -216,7 +213,11 @@ function getnewpuzzle()
     set_button_state(true);
     updateQuestion();
     updateList();
+}
 
+function exit_game()
+{
+    game_initialized = false;
 }
 
 function share()
