@@ -304,8 +304,8 @@ function answerQuestion(answer)
     $("#button-fake").addClass("disabled")
     $("#button-real").addClass("disabled")
 
-    long_timer = 1000;
-    short_timer = 800;
+    long_timer = 700;
+    short_timer = 500;
 
     //Move box left/right based on answer
     setTimeout(() =>

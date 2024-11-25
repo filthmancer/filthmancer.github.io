@@ -42,7 +42,7 @@
     align-self: center;
     position: relative;
 
-    transition: opacity .25s;
+    transition: opacity var(--anim-box-time);
     opacity: 1;
 }
 
@@ -101,12 +101,12 @@ rbfb-list-item .fake {
 }
 
 rbfb-list-item.shown {
-    transition: border-color .25s;
+    transition: border-color var(--anim-box-time);
     border-color: var(--color-day);
 }
 
 rbfb-list-item.hidden {
-    transition: border-color .25s;
+    transition: border-color var(--anim-box-time);
     border-color: var(--color-grey);
 }
 
@@ -141,21 +141,15 @@ rbfb-list-item.hidden {
 .shown .title,
 .shown .fake,
 .shown .correct {
-    transition: opacity 0.5s;
+    transition: opacity var(--anim-box-time);
     opacity: 1;
-    animation: fadeInAnimation ease .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
 }
 
 .hidden .title,
 .hidden .fake,
 .hidden .correct {
-    transition: opacity 0.5s;
+    transition: opacity var(--anim-box-time);
     opacity: 0;
-    animation: fadeOutAnimation ease .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
 }
 
 .correct {
@@ -166,10 +160,10 @@ rbfb-list-item.hidden {
     rotate: calc(var(--overlay-sign) * var(--box-rotation));
     translate: calc(var(--overlay-sign) * var(--box-translate));
 
-    transition: rotate .5s,
-        translate .5s,
-        background-color .5s,
-        opacity .5s;
+    transition: rotate var(--anim-box-time),
+        translate var(--anim-box-time),
+        background-color var(--anim-box-time),
+        opacity var(--anim-box-time);
 }
 
 .exit-correct {

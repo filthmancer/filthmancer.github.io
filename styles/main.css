@@ -9,6 +9,7 @@
     --header-height: 26px;
     --table-min-height: 100;
     --anim-page-transition-time: .5s;
+    --anim-box-time: .5s;
     --button-text-offset: -4px;
     --min-width: 250px;
     --target-width: 310px;
@@ -22,7 +23,6 @@
     --overlay-rotation: calc(var(--box-rotation) * var(--overlay-sign));
     --overlay-offset-x: calc(var(--box-rotation) * var(--overlay-sign));
     --answer-anim-1-time: .5s;
-    --answer-anim-2-time: 1s;
 }
 
 html
