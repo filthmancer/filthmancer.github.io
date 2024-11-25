@@ -52,7 +52,7 @@ jobs:
                     var ids = []
                     for (var sheet of sheets)
                     {
-                        ids.append(sheet.properties.sheetId);
+                        ids.push(sheet.properties.sheetId);
                         console.log(sheet.properties.sheetId)
                     }
                     return JSON.stringify(ids)
