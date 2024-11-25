@@ -110,4 +110,4 @@ jobs:
                 var sheets = apps.results[1].result
                 return JSON.stringify(sheets);
       - name: "Test output"
-        run: echo "${{steps.get_sheets.outputs.result}}"
+        run: echo ${{steps.get_sheets.outputs.result}}
