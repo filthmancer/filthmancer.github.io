@@ -37,7 +37,10 @@ jobs:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
       - id: 'get_sheetIds'
+        env:
+            RESULTS: "${{ fromJSON(steps.get_spreadsheet.outputs.results)}}"
         run: |
+            echo $RESULTS
             sheets= ${{ fromJSON(steps.get_spreadsheet.outputs.results) }}.results[0].result.sheets
             for s in $sheets
             do
