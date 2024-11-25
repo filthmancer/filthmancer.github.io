@@ -73,7 +73,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getSpreadsheet", "args": { "spreadsheetId": "1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc"}},
-              { "command": "getWorksheet", "args": { "worksheetTitle": "nov24" }},
+              { "command": "getWorksheet", "args": { "worksheetTitle": "nov24" }}
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
