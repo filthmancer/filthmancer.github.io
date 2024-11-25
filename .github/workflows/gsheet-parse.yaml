@@ -41,7 +41,9 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
           RESULTS: ${{steps.get_spreadsheet.outputs.results}}
         run: |
-          echo {{$RESULTS | jq .results[0].result.sheets}}
+            prId="$(echo '$RESULTS' | jq .results[0].result.sheets)";
+            echo "$prId";
+            echo "prId=$prId" >> "$GITHUB_OUTPUT"
       - id: 'get_worksheet'
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
         with:
