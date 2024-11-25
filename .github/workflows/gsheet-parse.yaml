@@ -25,7 +25,7 @@ jobs:
   fetch:
     runs-on: ubuntu-latest
     outputs:
-        matrix: ${{steps.get_sheetIds.outputs.SHEETS}}
+        matrix: ${{fromJson(steps.get_sheetIds.outputs.SHEETS)}}
     steps:
       - id: 'get_spreadsheet'
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: fetch
     strategy:
-        matrix:  ${{ fromJSON(needs.fetch.outputs.matrix)}}
+        matrix:  ${{ needs.fetch.outputs.matrix}}
     steps:
         - run: |
             echo ${{matrix}}
