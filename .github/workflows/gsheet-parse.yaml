@@ -61,21 +61,6 @@ jobs:
                     core.setFailed(err)
                 }
       - run: echo "${{steps.get_sheets.outputs.result}}"
-    #   - uses: actions/github-script@v7
-    #     id: set-result
-    #     with:
-    #         script: return "Hello!"
-    #         result-encoding: string
-    #   - id: 'get_sheetIds'
-    #     env:
-    #         RESULTS: "${{ fromJSON(steps.get_spreadsheet.outputs.results)}}"
-    #     run: |
-    #         echo $RESULTS
-    #         sheets= ${{ fromJSON(steps.get_spreadsheet.outputs.results) }}.results[0].result.sheets
-    #         for s in $sheets
-    #         do
-    #             echo $s
-    #         done
 
   spreadsheets:
     runs-on: ubuntu-latest
@@ -87,8 +72,8 @@ jobs:
           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
           commands: | # list of commands, specified as a valid JSON string
             [
-              { "command": "getSpreadsheet", "args": { }},
-              { "command": "getWorksheet", "args": { "worksheetTitle": "202411" }},
+              { "command": "getSpreadsheet", "args": { "spreadsheetId": "1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc"}},
+              { "command": "addWorksheet", "args": { "worksheetTitle": "202411" }},
               { "command": "getData", "args": { "range": "!B1:D4" } }
             ]
         env:
