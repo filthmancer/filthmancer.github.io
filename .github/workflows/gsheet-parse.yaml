@@ -42,8 +42,6 @@ jobs:
           RESULTS: ${{steps.get_spreadsheet.outputs.results}}
         run: |
           echo "{{$RESULTS | jq .results[0].result.sheets}}"
-          echo "SHEETS=$RESULTS | jq .results[0].result.sheets" >> $GITHUB_ENV
-          echo "$SHEETS"
       - id: 'get_worksheet'
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
         with:
