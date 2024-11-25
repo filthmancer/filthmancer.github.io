@@ -74,16 +74,16 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getWorksheet", "args": { "worksheetTitle": "nov24" }},
-              { "command": "getData", "args": { "range": "A2:B3" } }
+              { "command": "getData", "args": { "range": "nov24!A2:B3" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
-      - name: dump results
+      - id: 'parse_data'
         env:
           #  the output of the action can be found in ${{ steps.get_worksheet_data.outputs.results }}
           RESULTS: ${{ steps.get_worksheet_data.outputs.results }}
-        run: echo "$RESULTS" | jq
+        run: echo "${{steps.get_worksheet_data.outputs.results}}" | tr ' _ >> "$GITHUB_OUTPUT"
       - name: "Read Sheet Results"
         uses: actions/github-script@v6
         id: get_sheets
@@ -92,7 +92,7 @@ jobs:
             script: |
                 try {
                     const fs = require('fs')
-                    const jsonString = '${{steps.get_worksheet_data.outputs.results}}'
+                    const jsonString = '${{steps.parse_data.outputs.results}}'
                     jsonString = jsonString.replaceAll("'", " ");
                     var apps = JSON.parse(jsonString)
                    
