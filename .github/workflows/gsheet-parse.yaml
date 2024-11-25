@@ -73,7 +73,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getSpreadsheet", "args": { "spreadsheetId": "1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc"}},
-              { "command": "addWorksheet", "args": { "worksheetTitle": "202411" }},
+              { "command": "addWorksheet", "args": { "worksheetTitle": "nov24" }},
               { "command": "getData", "args": { "range": "!B1:D4" } }
             ]
         env:
