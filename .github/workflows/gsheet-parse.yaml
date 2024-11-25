@@ -100,7 +100,6 @@ jobs:
                 try {
                     const fs = require('fs')
                     const jsonString = '${{steps.parse_data.outputs.results}}'
-                    jsonString = jsonString.replaceAll("'", " ");
                     var apps = JSON.parse(jsonString)
                    
                 } catch(err) {
