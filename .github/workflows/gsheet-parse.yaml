@@ -88,7 +88,7 @@ jobs:
           commands: | # list of commands, specified as a valid JSON string
             [
               { "command": "getSpreadsheet", "args": { }},
-              { "command": "getWorksheet", "args": { "worksheetTitle": "<202411>" }},
+              { "command": "getWorksheet", "args": { "worksheetTitle": "202411" }},
               { "command": "getData", "args": { "range": "!B1:D4" } }
             ]
         env:
