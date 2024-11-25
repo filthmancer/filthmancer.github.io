@@ -1,0 +1,63 @@
+# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+name: Google Sheets to Json
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["gsheet"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "gsheet"
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - id: 'get_spreadsheet'
+        uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
+        with:
+          spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
+          commands: | # list of commands, specified as a valid JSON string
+            [
+              { "command": "getSpreadsheet", "args": { }}
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+      - name: dump spreadsheet
+        env:
+          #  the output of the action can be found in ${{ steps.get_spreadsheet.outputs.results }}
+          RESULTS: ${{steps.get_spreadsheet.outputs.results}}
+        run: |
+          echo "$RESULTS | jq .results[0].result.sheets"
+          echo "SHEETS=$RESULTS | jq .results[0].result.sheets" >> $GITHUB_ENV
+          echo "$SHEETS"
+      - id: 'get_worksheet'
+        uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
+        with:
+          spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
+          commands: | # list of commands, specified as a valid JSON string
+            [
+              { "command": "getWorksheet", "args": { "worksheetTitle": "202412" }},
+              { "command": "getData", "args": { "range": "!B1:D4" } }
+            ]
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+      - name: dump results
+        env:
+          #  the output of the action can be found in ${{ steps.get_worksheet.outputs.results }}
+          RESULTS: ${{ steps.get_worksheet.outputs.results }}
+        run: echo "$RESULTS" | jq
