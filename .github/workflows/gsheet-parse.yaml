@@ -84,8 +84,8 @@ jobs:
           #  the output of the action can be found in ${{ steps.get_worksheet_data.outputs.results }}
           RESULTS: ${{ steps.get_worksheet_data.outputs.results }}
         run: |
-            result = ${{steps.get_worksheet_data.outputs.results}} | tr -d "'"
-            echo $result
+            result= ${{steps.get_worksheet_data.outputs.results}}
+            echo $result | tr -d "'"
       - name: "Read Sheet Results"
         uses: actions/github-script@v6
         id: get_sheets
