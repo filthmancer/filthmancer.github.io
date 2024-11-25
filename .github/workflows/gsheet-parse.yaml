@@ -22,23 +22,68 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  fetch:
+#   fetch:
+#     runs-on: ubuntu-latest
+#     outputs:
+#         sheetIds: ${{steps.get_sheets.outputs.result}}
+#     steps:
+#       - id: 'get_spreadsheet'
+#         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
+#         with:
+#           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
+#           commands: | # list of commands, specified as a valid JSON string
+#             [
+#               { "command": "getSpreadsheet", "args": { }}
+#             ]
+#         env:
+#           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+#           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+#       - name: "Read JSON"
+#         uses: actions/github-script@v6
+#         id: get_sheets
+#         with:
+#             result-encoding: string
+#             script: |
+#                 try {
+#                     const fs = require('fs')
+#                     const jsonString = '${{steps.get_spreadsheet.outputs.results}}'
+#                     var apps = JSON.parse(jsonString)
+                   
+#                 } catch(err) {
+#                     core.error("Error while reading or parsing the JSON")
+#                     core.setFailed(err)
+#                 }
+#                 var sheets = apps.results[0].result.sheets
+#                 var ids = []
+#                 for (var sheet of sheets)
+#                 {
+#                     ids.push(sheet.properties.sheetId);
+#                     console.log(sheet.properties.sheetId)
+#                 }
+#                 return JSON.stringify(ids)
+#       - run: echo "${{steps.get_sheets.outputs.result}}"
+
+  spreadsheets:
     runs-on: ubuntu-latest
-    outputs:
-        sheetIds: ${{steps.get_sheets.outputs.result}}
+    # needs: fetch
     steps:
-      - id: 'get_spreadsheet'
+      - id: 'get_worksheet_data'
         uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
         with:
           spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
           commands: | # list of commands, specified as a valid JSON string
             [
-              { "command": "getSpreadsheet", "args": { }}
+              { "command": "getData", "args": { "range": "'nov24'A2:B3" } }
             ]
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
-      - name: "Read JSON"
+      - name: dump results
+        env:
+          #  the output of the action can be found in ${{ steps.get_worksheet_data.outputs.results }}
+          RESULTS: ${{ steps.get_worksheet_data.outputs.results }}
+        run: echo "$RESULTS" | jq
+      - name: "Read Sheet Results"
         uses: actions/github-script@v6
         id: get_sheets
         with:
@@ -46,40 +91,13 @@ jobs:
             script: |
                 try {
                     const fs = require('fs')
-                    const jsonString = '${{steps.get_spreadsheet.outputs.results}}'
+                    const jsonString = '${{steps.get_worksheet_data.outputs.results}}'
                     var apps = JSON.parse(jsonString)
-                    var sheets = apps.results[0].result.sheets
-                    var ids = []
-                    for (var sheet of sheets)
-                    {
-                        ids.push(sheet.properties.sheetId);
-                        console.log(sheet.properties.sheetId)
-                    }
-                    return JSON.stringify(ids)
+                   
                 } catch(err) {
                     core.error("Error while reading or parsing the JSON")
                     core.setFailed(err)
                 }
+                var sheets = apps.results[0]
+                return JSON.stringify(sheets);
       - run: echo "${{steps.get_sheets.outputs.result}}"
-
-  spreadsheets:
-    runs-on: ubuntu-latest
-    needs: fetch
-    steps:
-      - id: 'get_worksheet'
-        uses: jroehl/gsheet.action@v2.0.0 # you can specify '@release' to always have the latest changes
-        with:
-          spreadsheetId: 1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc
-          commands: | # list of commands, specified as a valid JSON string
-            [
-              { "command": "getSpreadsheet", "args": { "spreadsheetId": "1Qpz7ZfLaUUra6kEFspyqizCqj0HRC92Zj-CfTG3vXTc"}},
-              { "command": "getWorksheet", "args": { "worksheetTitle": "nov24" }}
-            ]
-        env:
-          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
-          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
-      - name: dump results
-        env:
-          #  the output of the action can be found in ${{ steps.get_worksheet.outputs.results }}
-          RESULTS: ${{ steps.get_worksheet.outputs.results }}
-        run: echo "$RESULTS" | jq
