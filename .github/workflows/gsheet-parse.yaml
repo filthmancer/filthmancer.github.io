@@ -89,7 +89,7 @@ jobs:
             EOJSON
             )
             n=$(echo $JSON | tr -d \')
-            echo $n
+            echo "results=$n" >> "$GITHUB_OUTPUT"
       - name: "Read Sheet Results"
         uses: actions/github-script@v6
         id: get_sheets
